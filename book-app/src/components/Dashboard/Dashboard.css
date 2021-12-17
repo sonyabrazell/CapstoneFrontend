@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.item {
+    align-self: auto;
+    align-items: stretcch;
+}

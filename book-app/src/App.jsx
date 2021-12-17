@@ -1,6 +1,12 @@
-import React from 'react'
-import logo from './logo.svg';
+import React from 'react';
+import {Component} from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import Navigation from './components/NavBar/NavBar';
+import Dashboard from './components/Dashboard/Dashboard';
+import Login from './components/Login/Login';
 import './App.css';
+import RegisterUser from './components/Register/Register';
 
 class App extends Component {
   constructor(props) {
@@ -20,21 +26,16 @@ class App extends Component {
     } catch {}
   }
 
-
-
-  let url = `https://openlibrary.org/api/books?bibkeys=ISBN:${book_isbn}&jscmd=data&format=json`
-
   render() {
     const user = this.state.user;
     return ( 
       <div>
         <Router>
-          <NavBar user={user}/>
+          <Navigation user={user}/>
             <Routes>
               <Route path = "/" element = {<Dashboard />} />
-              <Route path = "/login" element = {<Login />} />
-              <Route path = "/logout" element = {<Logout />} />
-              <Route path = "/login/register" element = {<Register />} />
+              <Route path = "/login/" element = {<Login />} />
+              <Route path = "/register/" element = {<RegisterUser/>} />
             </Routes>
         </Router>
       </div>

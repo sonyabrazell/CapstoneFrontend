@@ -1,6 +1,34 @@
 .App {
   text-align: center;
+  
 }
+
+body {
+  background-color: #d9ccc1;
+  color: #400101
+}
+
+h1 {
+  color: #8c2108;
+}
+
+h2 {
+  color: #f23a29;
+}
+
+h3 {
+  color: #f2acb9;
+}
+
+h4 {
+  color: #f23a29;
+}
+
+a:hover {
+  color: #f23a29;
+}
+
+
 
 .App-logo {
   height: 40vmin;
@@ -36,3 +64,4 @@
     transform: rotate(360deg);
   }
 }
+

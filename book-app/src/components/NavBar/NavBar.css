@@ -1,0 +1,12 @@
+.navbar {
+    background-color: #f2acb9;
+    color: #8c2108;
+}
+
+.nav-pills.hover {
+    background-color: #f23a29;
+}
+
+.nav-pills:global(.active) {
+    background-color: #f23a29;
+}
