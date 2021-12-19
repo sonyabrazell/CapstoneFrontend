@@ -34,7 +34,7 @@ const AddOgWork = () => {
     let handleSubmit = async (e) => {
         e.preventDefault();
         const jwt = localStorage.getItem('token');
-        let response = await axios.post('', newWork, {headers: {Authorization: 'Bearer ' + jwt}});
+        let response = await axios.post('http://localhost:8000/api/auth/library/og_tracker/', newWork, {headers: {Authorization: 'Bearer ' + jwt}});
         console.log(response.data);
         if (response.request.status === 201)
         {
