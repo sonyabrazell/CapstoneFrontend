@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
-import { useEffect } from 'react';
-import { Form, FormLabel } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Form, FormLabel, Container, Button } from 'react-bootstrap';
 
 const AddBook = () => {
 
@@ -47,7 +47,7 @@ const AddBook = () => {
     let handleSubmit = async (e) => {
         e.preventDefault();
         const jwt = localStorage.getItem('token');
-        let response = await axios.post('http://localhost:8000/api/auth/library/book/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
+        let response = await axios.post('http://localhost:8000/library/library/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
         console.log(response.data);
         if (response.request.status === 201)
         {

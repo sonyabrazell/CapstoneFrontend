@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
 import { Container, Form, Button, FormLabel } from 'react-bootstrap';
 
-const Login = (props) => {
+const Login = () => {
 
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
@@ -15,19 +15,19 @@ const Login = (props) => {
     
     const postUser = async (name, password) => {
         let payload = { username: name, password: password};
-        let response = await axios.post(`http://127.0.0.1:8000/api/auth/login/`, payload);
+        let response = await axios.post(`http://localhost:8000/api/auth/login/`, payload);
         console.log(response.data);
         localStorage.setItem("token", response.data.access);
         window.location = "/"
     };
 
     return ( 
-        <div align="center">
-            <Container>
-                <FormLabel>Login</FormLabel>
+        <div>
+            <Container style ={{flex: 1, width: "50%", padding: "10px"}}>
+                <FormLabel><h1>Login</h1></FormLabel>
                 <Form id="contact-form" onSubmit={onFormSubmit}>
-                    <Form.Group controlId="formBasicFirstName">
-                        <Form.ControlId
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Control
                             type="text"
                             name="userName"
                             placeholder="username"
@@ -35,8 +35,8 @@ const Login = (props) => {
                             onChange={(e) => setUserName(e.target.value)}/>
                     </Form.Group>
                     &nbsp;
-                    <Form.Group controlId="formBasicLastName">
-                        <Form.ControlId
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Control
                             type="text"
                             name="userPassword"
                             placeholder="password"

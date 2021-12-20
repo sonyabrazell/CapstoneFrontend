@@ -31,7 +31,7 @@ const BookSearch = (props) => {
             userId: user.id,
             book_isbn = elementId
         }
-        let response = await axios.post('http://127.0.0.1:8000/add_new_book/', payload, {headers: {Authorization: 'Bearer ' + jwt}})
+        let response = await axios.post('http://localhost:8000/library/books/', payload, {headers: {Authorization: 'Bearer ' + jwt}})
         console.log(response.data);
         if (response.request.status === 201)
         {

@@ -1,26 +1,27 @@
 import React from "react";
-import { useEffect } from "react";
-import axios from axios;
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import AddBook from "../AddBook/AddBook";
+import { Container, Button } from "react-bootstrap";
 
 const LibraryView  = ({user}) => {
     
     const [books, setBooks] = useState([])
 
     useEffect(()=>{
-        getBooks()
+        getBooks(books)
     },[user.id])
 
     const getBooks = async () => {
         console.log(user)
         const jwt = localStorage.getItem('token')
-        let response = await axios.get('http://localhost:8000/api/auth/library/books/', {headers: {Authorization: 'Bearer ' +jwt}})    
+        let response = await axios.get('http://localhost:8000/library/library/', {headers: {Authorization: 'Bearer ' +jwt}})    
         setBooks(response.data)
     }
 
-    const removeBook = async (book_id => {
+    const removeBook = (book_id => {
         const jwt = localStorage.getItem('token')
-        await axios.delete(`http://localhost:8000/api/auth/library/books/${book_id}`, {headers: {Authorization: 'Bearer ' + jwt}})
+        axios.delete(`http://localhost:8000/library/delete/${book_id}`, {headers: {Authorization: 'Bearer ' + jwt}})
         getBooks()
     })
 
@@ -53,7 +54,7 @@ return (
                             </div>
                         </div>
                 </div>
-                <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Remove from <Library></Library></Button>
+                <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Remove from Library</Button>
             </div>
             )};
             <AddBook />

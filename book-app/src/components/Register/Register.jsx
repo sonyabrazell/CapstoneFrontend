@@ -21,7 +21,7 @@ const RegisterUser = () => {
     let handleSubmit = async (e) => {
         e.preventDefault();
         let response = await axios.post(
-            `http://127.0.0.1:8000/api/auth/register/`, newUser    
+            `http://localhost:8000/api/auth/register/`, newUser    
         );
         console.log(response.data);
         if (response.request.status === 201) {
@@ -53,7 +53,7 @@ const RegisterUser = () => {
                         />
                     </Form.Group>
                     &nbsp;
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicUsername">
                         <Form.Control
                         type="name"
                         placeholder="Username"
