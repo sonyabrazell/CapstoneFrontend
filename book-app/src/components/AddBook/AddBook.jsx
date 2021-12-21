@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Form, FormLabel, Container, Button } from 'react-bootstrap';
+import { Form, FormLabel, Container, Button, Row, Col } from 'react-bootstrap';
+import { Checkbox } from 'react-input-checkbox';
 
 const AddBook = () => {
 
@@ -70,137 +71,173 @@ const AddBook = () => {
     return (
 
         // need to add a way to retrieve and set book cover from api after form submit
+        <React.Fragment>
+            <Container style={{padding: '20px', backgroundColor: '#f2acb9'}}>
+                <FormLabel><h2>Add Book</h2></FormLabel>
+                <Form onSubmit={(e)=> handleSubmit(e)}>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formGridTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control 
+                                type="title" 
+                                placeholder="Title"
+                                onChange={(e)=> setTitle(e.target.value)}
+                                value={title}/>
+                        </Form.Group>
 
-        <Container style={{ flex: 1, width: '50%', padding: '10%'}}>
-            <FormLabel><h3>Add Book</h3></FormLabel>
-            <Form id="add-book" onSubmit={(e)=> handleSubmit(e)}>
-                <Form.Group controlId="formBookTitle">Title
-                    <Form.Control
-                        type="title"
-                        placeholder="Title"
-                        onChange={(e)=> setTitle(e.target.value)}
-                        value={title}/>
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formBookAuthor">Author
-                    <Form.Control
-                        type="author"
-                        placeholder="Author"
-                        onChange={(e)=> setAuthor(e.target.value)}
-                        value={author}/>
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formBookIsbn">ISBN
-                    <Form.Control
-                        type="isbn"
-                        placeholder="ISBN"
-                        onChange={(e)=> setIsbn(e.target.value)}
-                        value={isbn}/>
-                </Form.Group>
-                &nbsp;
-                {['checkbox', 'radio'].map((type)=> (
-                    <div key={`default-${type}`} className='mb-3'>
-                        <Form.Check
-                        type={type}
-                        id={`default-${type}`}
-                        label={`default-${type}`}
-                        onChange={(e)=> setReadStatus(e.target.value)}
-                        value={readStatus}> 
-                        Read Status
-                        </Form.Check>
-                    </div>
-                ))}
-                <Form.Group controlId="formBookFormat">Book Format
-                    <Form.Select
-                        onChange={(e)=> setFormat(e.target.value)}
-                        value={format}>
-                            <option>Choose Book Format</option>
-                            <option>Hardback</option>
-                            <option>Paperback</option>
-                            <option>eBook</option>
-                            <option>Audiobook</option>
-                    </Form.Select>
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formBookGenre">Book Genre
-                    <Form.Select
-                        onChange={(e)=> setGenre(e.target.value)}
-                        value={genre}>
-                            <option>Choose Genre</option>
-                            <option>Action/Adventure</option>
-                            <option>Biography/Autobiography</option>
-                            <option>Children's</option>
-                            <option>Fantasy</option>
-                            <option>General Fiction</option>
-                            <option>Historical Fiction</option>
-                            <option>History</option>
-                            <option>Horror</option>
-                            <option>Literary Fiction</option>
-                            <option>Mystery/Suspense</option>
-                            <option>Poetry</option>
-                            <option>Reference</option>
-                            <option>Romance</option>
-                            <option>Science Fiction</option>
-                            <option>Self Help</option>
-                            <option>True Crime</option>
-                    </Form.Select>
-                </Form.Group>
-                &nbsp;
-                {['checkbox', 'radio'].map((type)=> (
-                    <div key={`default-${type}`} className='mb-3'>
-                        <Form.Check
-                        type={type}
-                        id={`default-${type}`}
-                        label={`default-${type}`}
-                        onChange={(e)=> setSeries(e.target.value)}
-                        value={series}>
-                        Series
-                        </Form.Check>
-                    </div>
-                ))}
-                {['checkbox', 'radio'].map((type)=> (
-                    <div key={`default-${type}`} className='mb-3'>
-                        <Form.Check
-                        type={type}
-                        id={`default-${type}`}
-                        label={`default-${type}`}
-                        onChange={(e)=> setSpecialEdition(e.target.value)}
-                        value={specialEdition}>
-                        Special Edition
-                        </Form.Check>
-                    </div>
-                ))}
-                {['checkbox', 'radio'].map((type)=> (
-                    <div key={`default-${type}`} className='mb-3'>
-                        <Form.Check
-                        type={type}
-                        id={`default-${type}`}
-                        label={`default-${type}`}
-                        onChange={(e)=> setFirstEdition(e.target.value)}
-                        value={firstEdition}>
-                        First Edition
-                        </Form.Check>
-                    </div>
-                ))}
-                {['checkbox', 'radio'].map((type)=> (
-                    <div key={`default-${type}`} className='mb-3'>
-                        <Form.Check
-                        type={type}
-                        id={`default-${type}`}
-                        label={`default-${type}`}
-                        onChange={(e)=> setSigned(e.target.value)}
-                        value={signed}>
-                        Signed
-                        </Form.Check>
-                    </div>
-                ))}
-                &nbsp; &nbsp;
-                <Button type="submit" variant="danger">
+                        <Form.Group as={Col} controlId="formGridAuthor">
+                            <Form.Label>Author</Form.Label>
+                            <Form.Control 
+                                type="Author" 
+                                placeholder="Author"
+                                onChange={(e)=> setAuthor(e.target.value)}
+                                value={author} />
+                        </Form.Group>
+                    </Row>
+                        <Form.Group className="mb-3" controlId="formGridIsbn">
+                            <Form.Label>ISBN</Form.Label>
+                            <Form.Control 
+                                type="ISBN"
+                                placeholder="ISBN"
+                                onChange={(e)=> setIsbn(e.target.value)}
+                                value={isbn}/>
+                        </Form.Group>
+
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formBookFormat">
+                            <Form.Label>Book Format</Form.Label>
+                            <Form.Select 
+                                defaultValue="Choose..."
+                                onChange={(e)=> setFormat(e.target.value)}
+                                value={format}>
+                                <option>Hardback</option>
+                                <option>Paperback</option>
+                                <option>eBook</option>
+                                <option>Audiobook</option>
+                            </Form.Select>
+                        </Form.Group>
+
+                        <Form.Group as={Col} controlId="formGridBookGenre">
+                            <Form.Label>Book Genre</Form.Label>
+                            <Form.Select 
+                                defaultValue="Choose..."
+                                onChange={(e)=> setGenre(e.target.value)}
+                                value={genre}>
+                                <option>Action/Adventure</option>
+                                <option>Biography/Autobiography</option>
+                                <option>Children's</option>
+                                <option>Fantasy</option>
+                                <option>General Fiction</option>
+                                <option>Historical Fiction</option>
+                                <option>History</option>
+                                <option>Horror</option>
+                                <option>Literary Fiction</option>
+                                <option>Mystery/Suspense</option>
+                                <option>Poetry</option>
+                                <option>Reference</option>
+                                <option>Romance</option>
+                                <option>Science Fiction</option>
+                                <option>Self Help</option>
+                                <option>True Crime</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Form.Group as={Col} controlId="formCheckboxes" style={{padding: '5px'}}>
+                            <Checkbox onChange={(e)=> setReadStatus(e.target.value)}> Read Status</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox onChange={(e)=> setSeries(e.target.value)}> Series?</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox onChange={(e)=> setFirstEdition(e.target.value)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox onChange={(e)=> setSigned(e.target.value)}> Signed?</Checkbox>
+                        </Form.Group>
+                    </Row>
+                <Button variant="danger" type="submit">
                     Submit
                 </Button>
             </Form>
         </Container>
+    </React.Fragment>
     );
 }
 
 export default AddBook;
+
+
+// // <React.Fragment>
+// //         <Container style={{ flex: 'wrap', width: '50%', padding: '10%'}}>
+// //             <FormLabel><h3>Add Book</h3></FormLabel>
+            
+// //                 <Form id="add-book" onSubmit={(e)=> handleSubmit(e)}>
+// //                     <Form.Group controlId="formBookTitle"><h5>Title</h5>
+// //                         <Form.Control
+// //                             type="title"
+// //                             placeholder="Title"
+// //                             onChange={(e)=> setTitle(e.target.value)}
+// //                             value={title}/>
+// //                     </Form.Group>
+// //                     &nbsp;
+// //                     <Form.Group controlId="formBookAuthor"><h5>Author</h5>
+// //                         <Form.Control
+// //                             type="author"
+// //                             placeholder="Author"
+// //                             onChange={(e)=> setAuthor(e.target.value)}
+// //                             value={author}/>
+// //                     </Form.Group>
+            
+//                 // &nbsp;
+//                 // <Form.Group controlId="formBookIsbn"><h5>ISBN</h5>
+//                 //     <Form.Control
+//                 //         type="isbn"
+//                 //         placeholder="ISBN"
+//                 //         onChange={(e)=> setIsbn(e.target.value)}
+//                 //         value={isbn}/>
+//                 // </Form.Group>
+//                     <Checkbox onChange={(e)=> setReadStatus(e.target.value)}>Read Status</Checkbox>
+//                 // <Form.Group controlId="formBookFormat"><h5>Book Format</h5>
+//                 //     <Form.Select
+//                 //         onChange={(e)=> setFormat(e.target.value)}
+//                 //         value={format}>
+//                 //             <option>Choose Book Format</option>
+//                 //             <option>Hardback</option>
+//                 //             <option>Paperback</option>
+//                 //             <option>eBook</option>
+//                 //             <option>Audiobook</option>
+//                 //     </Form.Select>
+//                 // </Form.Group>
+//                 &nbsp;
+//                 <Form.Group controlId="formBookGenre"><h5>Book Genre</h5>
+//                     <Form.Select
+//                         onChange={(e)=> setGenre(e.target.value)}
+//                         value={genre}>
+//                             <option>Choose Genre</option>
+//                             <option>Action/Adventure</option>
+//                             <option>Biography/Autobiography</option>
+//                             <option>Children's</option>
+//                             <option>Fantasy</option>
+//                             <option>General Fiction</option>
+//                             <option>Historical Fiction</option>
+//                             {/* <option>History</option>
+//                             <option>Horror</option>
+//                             <option>Literary Fiction</option>
+//                             <option>Mystery/Suspense</option>
+//                             <option>Poetry</option>
+//                             <option>Reference</option>
+//                             <option>Romance</option>
+//                             <option>Science Fiction</option>
+//                             <option>Self Help</option>
+//                             <option>True Crime</option>
+//                     </Form.Select>
+//                 </Form.Group>
+//                     <Checkbox onChange={(e)=> setSeries(e.target.value)}>Series?</Checkbox>
+//                 <br></br>
+//                     <Checkbox onChange={(e)=> setSpecialEdition(e.target.value)}>Special Edition?</Checkbox> 
+//                 <br></br>
+//                     <Checkbox onChange={(e)=> setFirstEdition(e.target.value)}>First Edidtion?</Checkbox>
+//                 <br></br>
+//                     <Checkbox onChange={(e)=> setSigned(e.target.value)}>Signed?</Checkbox>
+//                 <br></br>
+//                     <Button type="submit" variant="danger">
+//                         Submit
+//                     </Button>
+//             </Form>
+//         </Container>
+//         </React.Fragment> */}

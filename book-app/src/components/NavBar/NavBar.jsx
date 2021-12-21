@@ -9,9 +9,9 @@ const Navigation = ({user}) => {
 
     return (
         <div>
-            <Navbar className="navbar" variant="light" sticky="top" btn="danger">
+            <Navbar className="navbar" variant="light" sticky="top" >
                 <Navbar.Brand></Navbar.Brand>
-                    <Nav className="nav-pills" activeKey="1">
+                    <Nav className="nav-pills" >
                         <Nav.Item>
                             <Nav.Link eventKey="1" title="Dashboard" href="/">Dashboard</Nav.Link>
                         </Nav.Item>
@@ -28,13 +28,13 @@ const Navigation = ({user}) => {
                                 <Nav.Item>
                                     <Nav.Link eventKey="5" title="Library" href="/library">Library</Nav.Link>
                                 </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="6" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
-                                </Nav.Item>
                             <NavDropdown title="Trackers" id="nav-dropdown">
                                 <NavDropdown.Item eventKey="7.1" href="book_tracker/">Books</NavDropdown.Item>
                                 <NavDropdown.Item eventKey="7.2" href="og_tracker/">Original Works</NavDropdown.Item>
                             </NavDropdown>
+                            <Nav.Item>
+                                    <Nav.Link eventKey="6" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
+                                </Nav.Item>
                             <Nav.Item>
                             <Nav.Link eventKey="3" href="/logout">Log Out</Nav.Link>
                             </Nav.Item>

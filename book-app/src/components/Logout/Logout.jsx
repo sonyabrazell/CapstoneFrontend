@@ -1,6 +1,7 @@
 import React from 'react'
+import { Button } from 'react-bootstrap';
 
-const Logout = (props) => {
+const Logout = () => {
     
     const deleteToken = () => {
         localStorage.clear();

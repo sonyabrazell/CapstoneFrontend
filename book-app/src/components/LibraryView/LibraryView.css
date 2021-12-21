@@ -1,0 +1,9 @@
+.container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card-mb-3 {
+    background-color: #d9ccc1;
+}

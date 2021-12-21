@@ -8,7 +8,7 @@ const SeriesView = (Books) => {
     //map display
 
     return ( 
-
+        <div>SeriesView</div>
     );
 }
 

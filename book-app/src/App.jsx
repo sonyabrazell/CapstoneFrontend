@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode';
 import Navigation from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 import './App.css';
 import RegisterUser from './components/Register/Register';
 import AddBook from './components/AddBook/AddBook';
@@ -40,11 +41,12 @@ class App extends Component {
               <Route path = "/" element = {<Dashboard />} />
               <Route path = "/login/" element = {<Login />} />
               <Route path = "/register/" element = {<RegisterUser />} />
+              <Route path = "/logout/" element = {<Logout />} />
               <Route path = "/add_new_book/" element = {<AddBook />} />
-              <Route path = "/library/" render={props=> <LibraryView {...props} user={user} />} />
-              {/* <Route path = "/book_tracker/" render={props=> <BookTracker {...props} read_book="read_book" user={user} />} />
-              <Route path = "/og_tracker/" render={props=> <OgTracker {...props} read_work="read_work" user={user} />} />
-              <Route path = '/wishlist/' render = {props => <Wishlist{...props} user={user} /> } /> */}
+              <Route path = "/library/" element = {<LibraryView user={user} />} />
+              {/* <Route path = "/book_tracker/" render={<BookTracker user={user} />} />
+              <Route path = "/og_tracker/" render={<OgTracker read_work="read_work" user={user} />} />
+              <Route path = '/wishlist/' render = {<Wishlist user={user} /> } /> */}
             </Routes>
         </Router>
       </Container>
