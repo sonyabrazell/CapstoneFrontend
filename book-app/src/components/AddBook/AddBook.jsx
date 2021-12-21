@@ -5,6 +5,10 @@ import { Form, FormLabel, Container, Button } from 'react-bootstrap';
 
 const AddBook = () => {
 
+    //allows user to add book by entering info, then taking
+    //user input and doing an api call to retrieve the book cover
+    // and add all to library
+
     const [userId, setUserId] = useState('');
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -42,10 +46,17 @@ const AddBook = () => {
         let response = await axios.get()
         setUserId(response.data.id)
     }
+
+    const getCover = async (isbn) => {
+        let response = await axios.get(`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`)
+        setCover(response.data)
+    }
+
     //add api for adding book, and then api to retrieve book cover into handle submit
 
     let handleSubmit = async (e) => {
         e.preventDefault();
+        getCover(isbn)
         const jwt = localStorage.getItem('token');
         let response = await axios.post('http://localhost:8000/library/library/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
         console.log(response.data);
@@ -53,6 +64,7 @@ const AddBook = () => {
         {
             alert('Book added, thank you!');
         }
+        
     }
 
     return (

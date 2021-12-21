@@ -5,6 +5,8 @@ import { Form, Container, Button } from "react-bootstrap";
 
 const AddOgWork = () => {
 
+    //allows user to add a read work to og_tracker
+
     const [userId, setUserId] = useState('');
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -29,7 +31,7 @@ const AddOgWork = () => {
         const jwt = localStorage.getItem('token');
         let response = await axios.get('', {headers: {Authorization: 'Bearer ' + jwt}});
         setUserId(response.data.id)
-    }
+    } //ensuring work is added to correct library tracker
 
     let handleSubmit = async (e) => {
         e.preventDefault();

@@ -6,7 +6,6 @@ import "./NavBar.css"
 
 const Navigation = ({user}) => {
 
-    
 
     return (
         <div>
@@ -26,22 +25,19 @@ const Navigation = ({user}) => {
                     )}
                     {user && (
                         <React.Fragment>
-                            <NavDropdown title="Logout">
-                            <NavDropdown.Item eventKey="2.3" href="/logout">Log Out</NavDropdown.Item>
-                            </NavDropdown>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="3" title="Dashboard" href="/">Dashboard</Nav.Link>
+                                    <Nav.Link eventKey="5" title="Library" href="/library">Library</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="4" title="Library" href="/library">Library</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="5" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
+                                    <Nav.Link eventKey="6" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
                                 </Nav.Item>
                             <NavDropdown title="Trackers" id="nav-dropdown">
-                                <NavDropdown.Item eventKey="6.1" href="book_tracker/">Books</NavDropdown.Item>
-                                <NavDropdown.Item eventKey="6.2" href="og_tracker/">Original Works</NavDropdown.Item>
+                                <NavDropdown.Item eventKey="7.1" href="book_tracker/">Books</NavDropdown.Item>
+                                <NavDropdown.Item eventKey="7.2" href="og_tracker/">Original Works</NavDropdown.Item>
                             </NavDropdown>
+                            <Nav.Item>
+                            <Nav.Link eventKey="3" href="/logout">Log Out</Nav.Link>
+                            </Nav.Item>
                     </React.Fragment>
                     )}
                 </Nav>

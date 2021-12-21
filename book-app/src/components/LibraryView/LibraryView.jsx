@@ -3,19 +3,20 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import AddBook from "../AddBook/AddBook";
 import { Container, Button } from "react-bootstrap";
+import RelatedPopover from "../RelatedPopover/RelatedPopover";
 
 const LibraryView  = ({user}) => {
     
     const [books, setBooks] = useState([])
 
     useEffect(()=>{
-        getBooks(books)
-    },[user.id])
+        getBooks()
+    },)
 
     const getBooks = async () => {
         console.log(user)
         const jwt = localStorage.getItem('token')
-        let response = await axios.get('http://localhost:8000/library/library/', {headers: {Authorization: 'Bearer ' +jwt}})    
+        let response = await axios.get('http://localhost:8000/library/library/', {headers: {Authorization: 'Bearer ' + jwt}})    
         setBooks(response.data)
     }
 
@@ -24,6 +25,8 @@ const LibraryView  = ({user}) => {
         axios.delete(`http://localhost:8000/library/delete/${book_id}`, {headers: {Authorization: 'Bearer ' + jwt}})
         getBooks()
     })
+
+
 
 return ( 
     <Container fluid>
@@ -55,6 +58,7 @@ return (
                         </div>
                 </div>
                 <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Remove from Library</Button>
+                <RelatedPopover />
             </div>
             )};
             <AddBook />

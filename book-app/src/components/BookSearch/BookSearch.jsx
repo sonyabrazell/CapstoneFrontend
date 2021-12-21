@@ -6,6 +6,7 @@ const BookSearch = (props) => {
     const [book, setBook] = useState('')
     const [searchResults, setSearchResults] = useState('')
 
+
     const getSearchResults = (searchFor) => {
         let searchResults = book.filter(b => b.book_title.toLowerCase().includes(searchFor.toLowerCase()))
         .map(books => (books));
@@ -14,15 +15,17 @@ const BookSearch = (props) => {
 
     const getBooks = async () => {
         let response = await axios.get(`https://openlibrary.org/search.json?q=${searchFor}`)
-        setBook(response.data)
-    }
+        setBook(response.data); {
+
+        const {book_title: {book_author, book_isbn, book_cover}} = data
+    }} //to deconstruct json data from response
 
     const handleSubmit = (e) => {
         e.preventDefault();
         let searchFor = document.getElementById('searchFor')
         getBooks(searchFor)
-        getSearchResults(book)
-    }
+        getSearchResults(data)
+    } // getBooks takes search bar data to api request, getSearchResults filters and maps the response back.
 
     const handleClick = async (e, elementId) => {
         e.preventDefault();
@@ -36,8 +39,10 @@ const BookSearch = (props) => {
         if (response.request.status === 201)
         {
             alert('Book added to library, thank you')
-        }
+        } //adds search result book to library
     }
+
+    
 
     return ( 
         <Container fluid>
