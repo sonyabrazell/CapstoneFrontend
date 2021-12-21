@@ -34,30 +34,20 @@ const LibraryView = ({ user }) => {
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start'}}>
                 {books.map((element, index) =>
-                    <div key={index} className="card mb-3" style={{ width: '500px', padding: '5px'}}>
+                    <div key={index} className="card mb-3" style={{ width: '500px', height: '400px',padding: '5px'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
-                                <svg
-                                    className="bd-placeholder-img"
-                                    style={{padding: '5px'}}
-                                    width="100%"
-                                    height="275"
-                                    img-src={element.book_cover}
-                                    aria-label="Book Cover"
-                                    preserveAspectRatio='xMidyMid slice'
-                                    role="img">
-                                    <title>Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#8c2018" />
-                                </svg>
+                                <img src={element.book_cover} alt="book cover" style={{paddingTop:'10px', paddingLeft:'10px'}}/>
                             </div>
                             <div className="col-md-8">
                                 <div className="card-body">
-                                    <h2 align ="right" className="card-title">Title: {element.book_title}</h2>
-                                    <h5 align="right">Author: {element.book_author}</h5>
+                                    <h2 align ="right" className="card-title">{element.book_title}</h2>
+                                    <h5 align="right">{element.book_author}</h5>
                                     <p align="right">ISBN: {element.book_isbn}</p>
+                                    <div style={{width: '200px', flexWrap: "wrap", justifyContent: "space-evenly", align: "right"}}>
                                     <p align="right"> <Badge pill bg="dark">{element.book_genre}</Badge> &nbsp;
-                                        <Badge pill bg="dark">{element.book_format}</Badge></p>
-                                        <p align="right">
+                                        
+                                        <Badge pill bg="dark">{element.book_format}</Badge> &nbsp;
                                         {element.special_edition === true ? (
                                         <Badge pill bg="dark">Special Edition</Badge>
                                     ) : ''} &nbsp;
@@ -66,16 +56,25 @@ const LibraryView = ({ user }) => {
                                     ) : ''} &nbsp;
                                         {element.signed === true ? (
                                         <Badge pill bg="dark">Signed</Badge>
-                                    ) : ''}
+                                    ) : ''} &nbsp;
+                                        {element.book_series === true ? (
+                                                <Badge pill bg="dark">{element.series_name}</Badge>
+                                            ): ''}
+                                            {element.read_status === true ? (
+                                                <Badge pill bg="dark">Read</Badge>
+                                            ): ''} 
                                         </p>
+                                    </div>    
+                                                                        
                                 </div>
                             </div>
                         </div>
+                        <br></br>
                         <Container style={{justifyContent: "flex-start"}}>
                             <RelatedPopover /> &nbsp; <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Remove from Library</Button>
                         </Container>
                     </div> 
-                )};
+                )}
                 <Container>
                     <AddBook />
                 </Container>

@@ -1,47 +1,50 @@
 import React, { useState } from "react";
-// import axios from "axios";
-// import { ProgressBar, Container, Button } from "react-bootstrap";
+import axios from "axios";
+import { ProgressBar, Container, Button } from "react-bootstrap";
+import _default from "react-bootstrap/esm/Accordion";
 
 
-// const BookTracker = (book_id) => {
+const BookTracker = (book_id) => {
 
-//     const [readBook, setReadBook] = useState('')
-//     const [count, setCount] = useState(0)
+    const [readBook, setReadBook] = useState('')
+    const [count, setCount] = useState(0)
+    const [trackedBook, setTrackedBook] = useState([])
 
-//     const handleChange = (e) => {
-//         setReadBook(e.target.value);
-//     }; //handle change on submit
+    
+     //where to change read_status from false to true in user's library
+    
+     const getReadBooks = async () => {
+        const jwt = localStorage.getItem('token')
+        let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
+        response.data.filter    
+    })
+        })
+    }
 
-//     const handleSubmit = async (e) => {
-//         e.PreventDefault();
-//         await axios.post('http://localhost:8000/library/book_tracker', readBook, {headers: {Authorization: 'Bearer ' +jwt}});
-//     } // on submit posting to book_tracker database
+    const removeReadBook = async (book_id) => {
+        const jwt = localStorage.getItem('token')
+        axios.delete(`http://localhost:8000/library/book_tracker/delete/${book_id}`, {headers: {Authorization: 'Bearer ' + jwt}})
+     } //need to remove book from tracker, set read_status back to false
 
-//     //where to change read_status from false to true in user's library
+    return ( 
+        
+        <Container>
+            <ProgressBar striped variant="success" now={count} />
 
-//     const removeReadBook = async (book_id) => {
-//         const jwt = localStorage.getItem('token')
-//         axios.delete(`http://localhost:8000/library/book_tracker/delete/${book_id}`, {headers: {Authorization: 'Bearer ' + jwt}})
-//     } //need to remove book from tracker, set read_status back to false
+            <Button 
+            onClick={()=> setCount(count + 1)} 
+            onSubmit={handleSubmit} 
+            onChange={handleChange} 
+            color = "danger">
+                Add Read Book</Button>
+            <Button 
+            onClick={()=> setCount(count - 1), removeReadBook(book_id)} 
+            onSubmit={handleSubmit} 
+            onChange={handleChange} 
+            color = "danger">
+                Delete Read Book</Button>
+        </Container>
+    );
+}
 
-//     return ( 
-//         //return list of books read with the ability to add new book read. how to tally?
-//         <Container>
-//             <ProgressBar striped variant="success" now={count} />
-//             <Button 
-//             onClick={()=> setCount(count + 1)} 
-//             onSubmit={handleSubmit} 
-//             onChange={handleChange} 
-//             color = "danger">
-//                 Add Read Book</Button>
-//             <Button 
-//             onClick={()=> setCount(count - 1), removeReadBook(book_id)} 
-//             onSubmit={handleSubmit} 
-//             onChange={handleChange} 
-//             color = "danger">
-//                 Delete Read Book</Button>
-//         </Container>
-//     );
-// }
-
-// export default BookTracker;
+export default BookTracker;

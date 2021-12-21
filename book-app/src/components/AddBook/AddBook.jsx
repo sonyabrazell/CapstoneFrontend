@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Form, FormLabel, Container, Button, Row, Col } from 'react-bootstrap';
 import { Checkbox } from 'react-input-checkbox';
 
+
 const AddBook = () => {
 
     //allows user to add book by entering info, then taking
@@ -52,6 +53,8 @@ const AddBook = () => {
         let response = await axios.get(`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`)
         setCover(response.data)
     }
+
+    
 
     //add api for adding book, and then api to retrieve book cover into handle submit
 
@@ -110,6 +113,7 @@ const AddBook = () => {
                                 defaultValue="Choose..."
                                 onChange={(e)=> setFormat(e.target.value)}
                                 value={format}>
+                                <option>Choose...</option>
                                 <option>Hardback</option>
                                 <option>Paperback</option>
                                 <option>eBook</option>
@@ -123,6 +127,7 @@ const AddBook = () => {
                                 defaultValue="Choose..."
                                 onChange={(e)=> setGenre(e.target.value)}
                                 value={genre}>
+                                <option>Choose...</option>
                                 <option>Action/Adventure</option>
                                 <option>Biography/Autobiography</option>
                                 <option>Children's</option>
@@ -144,10 +149,11 @@ const AddBook = () => {
                     </Row>
                     <Row>
                         <Form.Group as={Col} controlId="formCheckboxes" style={{padding: '5px'}}>
-                            <Checkbox onChange={(e)=> setReadStatus(e.target.value)}> Read Status</Checkbox> &nbsp; &nbsp; &nbsp;
-                            <Checkbox onChange={(e)=> setSeries(e.target.value)}> Series?</Checkbox> &nbsp; &nbsp; &nbsp;
-                            <Checkbox onChange={(e)=> setFirstEdition(e.target.value)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;
-                            <Checkbox onChange={(e)=> setSigned(e.target.value)}> Signed?</Checkbox>
+                            <Checkbox value={readStatus} onChange={(e)=> setReadStatus(e.target.checked)}> Read Status</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox value={series} onChange={(e)=> setSeries(e.target.checked)}> Series?</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox value={specialEdition} onChange={(e) => setSpecialEdition(e.target.checked)}> Special Edition?</Checkbox> &nbsp;
+                            <Checkbox value={firstEdition} onChange={(e)=> setFirstEdition(e.target.checked)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox value={signed} onChange={(e)=> setSigned(e.target.checked)}> Signed?</Checkbox>
                         </Form.Group>
                     </Row>
                 <Button variant="danger" type="submit">
