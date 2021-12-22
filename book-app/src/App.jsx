@@ -18,6 +18,7 @@ class App extends Component {
     super(props);
     this.state = { 
       user: '',
+  
     }
   }
   
@@ -33,6 +34,7 @@ class App extends Component {
 
   render() {
     const user = this.state.user;
+
     return ( 
       <Container>
         <Router>
@@ -44,8 +46,8 @@ class App extends Component {
               <Route path = "/logout/" element = {<Logout />} />
               <Route path = "/add_new_book/" element = {<AddBook />} />
               <Route path = "/library/" element = {<LibraryView user={user} />} />
-              {/* <Route path = "/book_tracker/" render={<BookTracker user={user} />} />
-              <Route path = "/og_tracker/" render={<OgTracker read_work="read_work" user={user} />} />
+              <Route path = "/book_tracker/" element={<BookTracker user={user} />} />
+              {/* <Route path = "/og_tracker/" render={<OgTracker read_work="read_work" user={user} />} />
               <Route path = '/wishlist/' render = {<Wishlist user={user} /> } /> */}
             </Routes>
         </Router>

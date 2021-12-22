@@ -45,25 +45,25 @@ const LibraryView = ({ user }) => {
                                     <h5 align="right">{element.book_author}</h5>
                                     <p align="right">ISBN: {element.book_isbn}</p>
                                     <div style={{width: '200px', flexWrap: "wrap", justifyContent: "space-evenly", align: "right"}}>
-                                    <p align="right"> <Badge pill bg="dark">{element.book_genre}</Badge> &nbsp;
-                                        
-                                        <Badge pill bg="dark">{element.book_format}</Badge> &nbsp;
-                                        {element.special_edition === true ? (
-                                        <Badge pill bg="dark">Special Edition</Badge>
-                                    ) : ''} &nbsp;
-                                        {element.first_edition === true ? (
-                                        <Badge pill bg="dark">First Edition</Badge> 
-                                    ) : ''} &nbsp;
-                                        {element.signed === true ? (
-                                        <Badge pill bg="dark">Signed</Badge>
-                                    ) : ''} &nbsp;
-                                        {element.book_series === true ? (
-                                                <Badge pill bg="dark">{element.series_name}</Badge>
-                                            ): ''}
-                                            {element.read_status === true ? (
-                                                <Badge pill bg="dark">Read</Badge>
-                                            ): ''} 
-                                        </p>
+                                        <p align="right"> <Badge pill bg="dark">{element.book_genre}</Badge> &nbsp;
+                                            
+                                            <Badge pill bg="dark">{element.book_format}</Badge> &nbsp;
+                                            {element.special_edition === true ? (
+                                            <Badge pill bg="dark">Special Edition</Badge>
+                                        ) : ''} &nbsp;
+                                            {element.first_edition === true ? (
+                                            <Badge pill bg="dark">First Edition</Badge> 
+                                        ) : ''} &nbsp;
+                                            {element.signed === true ? (
+                                            <Badge pill bg="dark">Signed</Badge>
+                                        ) : ''} &nbsp;
+                                            {element.book_series === true ? (
+                                                    <Badge pill bg="dark">{element.series_name}</Badge>
+                                                ): ''}
+                                                {element.read_status === true ? (
+                                                    <Badge pill bg="dark">Read</Badge>
+                                                ): ''} 
+                                            </p>
                                     </div>    
                                                                         
                                 </div>
