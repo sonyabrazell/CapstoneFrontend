@@ -6,9 +6,10 @@ import { Container, Button, Badge, Row } from "react-bootstrap";
 import RelatedPopover from "../RelatedPopover/RelatedPopover";
 import './LibraryView.css'
 
-const LibraryView = ({ user }) => {
+const LibraryView = () => {
 
     const [books, setBooks] = useState([])
+
     useEffect(() => {
         getBooks()
     },[])
@@ -20,11 +21,11 @@ const LibraryView = ({ user }) => {
     }
 
 
-    const removeBook = (book_id => {
+    const removeBook = (bookId) => {
         const jwt = localStorage.getItem('token')
-        axios.delete(`http://localhost:8000/library/delete/${book_id}`, { headers: { Authorization: 'Bearer ' + jwt } })
+        axios.delete(`http://localhost:8000/library/delete/${bookId}`, { headers: { Authorization: 'Bearer ' + jwt } })
         getBooks()
-    })
+    }
 
     return (
         <React.Fragment>
@@ -37,7 +38,7 @@ const LibraryView = ({ user }) => {
                     <div key={index} className="card mb-3" style={{ width: '500px', height: '400px',padding: '5px'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
-                                <img src={element.book_cover} alt="book cover" style={{paddingTop:'10px', paddingLeft:'10px'}}/>
+                                <img src={element.book_cover} onError={'book-app/src/static/background.png'} style={{paddingTop:'10px', paddingLeft:'10px'}}/>
                             </div>
                             <div className="col-md-8">
                                 <div className="card-body">

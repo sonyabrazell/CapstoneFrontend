@@ -23,9 +23,16 @@ const BookTracker = ({user}) => {
         }        
     
     const displayReadBooks = () => {
-        let readBooks = books.filter(books.read_status === true)
+        console.log('books inside displayRead: ', books)
+        let readBooks = books.filter((el) => {
+            console.log('el inside filter', el)
+                return el.read_status === true
+        }
+            )
         console.log(readBooks)
         setReadBooks(readBooks)
+        let length = readBooks.length;
+        return setCount(length)
     }
 
     const removeReadBook = async (book) => {
@@ -43,29 +50,39 @@ const BookTracker = ({user}) => {
 
     return ( 
         <React.Fragment>
-            <h1>Book Tracker</h1>
-            <Container>
-                <ProgressBar striped variant="success" now={count} />
-            </Container>
-            <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start'}}>
-                {readBooks.map((element, index) =>
-                    <div key={index} className="card mb-3" style={{width: '500px', height: '400px', padding: '5px'}}>
-                        <div className="col-md-4">
-                            <img src={element.book_cover} alt="book cover" style={{paddingTop: '10px', paddingLeft: '10px'}}/>
+            <h1 align="center" style={{paddingTop:'20px'}}>Book Tracker</h1>
+                <Container align="left" style={{paddingTop: "20px"}}>
+                    
+                    <ProgressBar striped variant="danger" now={count} label={`${count}`} />
+                    <h5>BOOKS READ IN {new Date().getFullYear()}</h5>
+                </Container>
+            <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', paddingTop: '20px'}}>
+                {readBooks.map((element, index) => 
+                    <div key={index} className="card mb-3" style={{width: '500px', height: '300px', padding: '5px'}}>
+                        <div className="row no-gutters">
+                            <div className="col-md-4">
+                                <img src={element.book_cover} alt={'book-app/src/static/background.png'} style={{paddingTop: '10px', paddingLeft: '10px'}}/>
+                            </div>
+                        <div className="col-md-8">
+                            <div className="card-body" style={{justifyContent: 'flex-end', alignItems: "end"}}>
+                                <h2 align="right" className="card-title">{element.book_title}</h2>
+                                <h5 align="right">{element.book_author}</h5>
+                                <p align="right">{element.date_read}</p>
+                                
+                                <Container>
+                                <Button 
+                                    align="right"
+                                    onClick={()=> removeReadBook({element})} 
+                                    variant= "danger">
+                                    Delete Read Book</Button>
+                                </Container>
+                            </div>
                         </div>
-                    <div className="col-md-8">
-                        <div className="card-body">
-                            <h2 align="right" className="card-title">{element.book_title}</h2>
-                            <h5 align="right">{element.book_author}</h5>
-                            <p align="right">{element.date_read}</p>
+                        
                         </div>
                     </div>
-                    <Button 
-                    onClick={()=> removeReadBook({element})} 
-                    color = "danger">
-                        Delete Read Book</Button>
-                    </div>
-            )}</Container>
+                    
+                )}</Container>
         </React.Fragment>
     );
 }

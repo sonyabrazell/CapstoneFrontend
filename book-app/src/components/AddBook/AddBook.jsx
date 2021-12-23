@@ -16,24 +16,28 @@ const AddBook = () => {
     const [author, setAuthor] = useState('');
     const [isbn, setIsbn] = useState('');
     const [cover, setCover] = useState('');
-    const [readStatus, setReadStatus] = useState('');
+    const [readStatus, setReadStatus] = useState(false);
+    const [dateRead, setDateRead] = useState('')
     const [format, setFormat] = useState('');
     const [genre, setGenre] = useState('');
-    const [series, setSeries] = useState('');
-    const [specialEdition, setSpecialEdition] = useState('');
-    const [firstEdition, setFirstEdition] = useState('');
-    const [signed, setSigned] = useState('');
+    const [series, setSeries] = useState(false);
+    const [seriesName, setSeriesName] = useState('');
+    const [specialEdition, setSpecialEdition] = useState(false);
+    const [firstEdition, setFirstEdition] = useState(false);
+    const [signed, setSigned] = useState(false);
 
     const newBook = {
-        user: userId,
+        user_id: userId,
         book_title: title,
         book_author: author,
         book_isbn: isbn,
         book_cover: cover,
         read_status: readStatus,
+        date_read: dateRead,
         book_format: format,
         book_genre: genre,
         book_series: series,
+        series_name: seriesName,
         special_edition: specialEdition,
         first_edition: firstEdition,
         signed: signed,
@@ -61,6 +65,7 @@ const AddBook = () => {
     let handleSubmit = async (e) => {
         e.preventDefault();
         getCover(isbn)
+        console.log(newBook)
         const jwt = localStorage.getItem('token');
         let response = await axios.post('http://localhost:8000/library/library/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
         console.log(response.data);
@@ -97,7 +102,8 @@ const AddBook = () => {
                                 value={author} />
                         </Form.Group>
                     </Row>
-                        <Form.Group className="mb-3" controlId="formGridIsbn">
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formGridIsbn">
                             <Form.Label>ISBN</Form.Label>
                             <Form.Control 
                                 type="ISBN"
@@ -105,7 +111,7 @@ const AddBook = () => {
                                 onChange={(e)=> setIsbn(e.target.value)}
                                 value={isbn}/>
                         </Form.Group>
-
+                    </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formBookFormat">
                             <Form.Label>Book Format</Form.Label>
@@ -147,13 +153,31 @@ const AddBook = () => {
                             </Form.Select>
                         </Form.Group>
                     </Row>
-                    <Row>
+                    <Row className='mb-3'>
                         <Form.Group as={Col} controlId="formCheckboxes" style={{padding: '5px'}}>
-                            <Checkbox value={readStatus} onChange={(e)=> setReadStatus(e.target.checked)}> Read Status</Checkbox> &nbsp; &nbsp; &nbsp;
                             <Checkbox value={series} onChange={(e)=> setSeries(e.target.checked)}> Series?</Checkbox> &nbsp; &nbsp; &nbsp;
                             <Checkbox value={specialEdition} onChange={(e) => setSpecialEdition(e.target.checked)}> Special Edition?</Checkbox> &nbsp;
                             <Checkbox value={firstEdition} onChange={(e)=> setFirstEdition(e.target.checked)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;
-                            <Checkbox value={signed} onChange={(e)=> setSigned(e.target.checked)}> Signed?</Checkbox>
+                            <Checkbox value={signed} onChange={(e)=> setSigned(e.target.checked)}> Signed?</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox value={readStatus} onChange={(e)=> setReadStatus(e.target.checked)}> Read?</Checkbox> 
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formSeriesName">
+                            <Form.Label>Series Name</Form.Label>
+                            <Form.Control
+                                type="Series Name"
+                                placeholder="Series name, if applicable"
+                                onChange={(e)=> setSeriesName(e.target.value)}
+                                value={seriesName} />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formDateRead">
+                            <Form.Label>Date Read</Form.Label>
+                            <Form.Control
+                                type="Date Read"
+                                placeholder="Date read, if applicable"
+                                onChange={(e)=> setDateRead(e.target.value)}
+                                value={dateRead} />
                         </Form.Group>
                     </Row>
                 <Button variant="danger" type="submit">
