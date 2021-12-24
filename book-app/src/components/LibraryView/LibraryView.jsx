@@ -30,7 +30,7 @@ const LibraryView = () => {
     return (
         <React.Fragment>
             <div align="center" >
-                <Container style={{paddingTop: '20px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
+                <Container style={{paddingTop: '100px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
                     <h1>Library</h1>
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start'}}>

@@ -27,14 +27,13 @@ const BookTracker = ({user}) => {
         let readBooks = books.filter((el) => {
             console.log('el inside filter', el)
                 return el.read_status === true
-        }
-            )
+        })
         console.log(readBooks)
         setReadBooks(readBooks)
-        let length = readBooks.length;
-        return setCount(length)
+            let length = readBooks.length;
+            return setCount(length)
     }
-
+    
     const removeReadBook = async (book) => {
         const jwt = localStorage.getItem('token');
         await axios.delete(`http://localhost:8000/library/book_tracker/delete/${books.id}`, {headers: {Authorization: 'Bearer ' + jwt}})
@@ -50,11 +49,10 @@ const BookTracker = ({user}) => {
 
     return ( 
         <React.Fragment>
-            <h1 align="center" style={{paddingTop:'20px'}}>Book Tracker</h1>
+            <h1 align="center" style={{paddingTop:'100px'}}>Book Tracker</h1>
                 <Container align="left" style={{paddingTop: "20px"}}>
-                    
                     <ProgressBar striped variant="danger" now={count} label={`${count}`} />
-                    <h5>BOOKS READ IN {new Date().getFullYear()}</h5>
+                    <h5>YOU HAVE READ {count} BOOKS IN {new Date().getFullYear()}</h5>
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', paddingTop: '20px'}}>
                 {readBooks.map((element, index) => 

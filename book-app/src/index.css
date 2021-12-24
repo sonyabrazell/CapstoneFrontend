@@ -1,15 +1,15 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
 
 body {
   margin: 0;
-  font-family: 'Rubik', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Red Hat Display', sans-serif;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
   color: #400101;
   background-color: #d9ccc1;
 }
 
 code {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Red Hat Display', sans-serif;
 }

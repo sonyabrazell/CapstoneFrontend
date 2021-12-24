@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap');
+
+
 .App {
   text-align: center;
   
@@ -5,33 +9,42 @@
 
 body {
   background-color: #d9ccc1;
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: large;
   color: #400101;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 h1 {
-  color: #8c2108;
+  color: #f23a29;
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: xxx-large;
   font-weight: 900;
   
 }
 
 h2 {
-  color: #f23a29;
+  color: #8c2108;
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: xx-large;
   font-weight: 800;
 }
 
 h3 {
   color: #f2acb9;
+  font-family: 'Red Hat Display', sans-serif;
   font-weight: 700;
 }
 
 h4 {
   color: #f23a29;
+  font-family: 'Red Hat Display', sans-serif;
   font-weight: 600;
 }
 
 h5 {
   font-weight: 500;
+  font-family: 'Red Hat Display', sans-serif;
 }
 
 a:hover {

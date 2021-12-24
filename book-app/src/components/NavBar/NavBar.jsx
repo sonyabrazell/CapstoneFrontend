@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
 import "./NavBar.css"
+import { Image } from 'react-bootstrap';
 
 
 const Navigation = ({user}) => {
@@ -9,8 +10,13 @@ const Navigation = ({user}) => {
 
     return (
         <div>
-            <Navbar className="navbar" variant="light" sticky="top" >
-                <Navbar.Brand></Navbar.Brand>
+            <Navbar className="navbar" variant="light" fixed="top" style={{width: "100%"}} >
+                <Navbar.Brand href="/">
+                    <Image 
+                        src={require("./static/reposistorylogo.png")}
+                        width="200px"
+                        style={{paddingLeft: "5px"}}/>
+                </Navbar.Brand>
                     <Nav className="nav-pills" >
                         <Nav.Item>
                             <Nav.Link eventKey="1" title="Dashboard" href="/">Dashboard</Nav.Link>

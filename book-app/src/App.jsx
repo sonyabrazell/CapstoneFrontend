@@ -11,6 +11,7 @@ import RegisterUser from './components/Register/Register';
 import AddBook from './components/AddBook/AddBook';
 import LibraryView from './components/LibraryView/LibraryView';
 import BookTracker from './components/BookTracker/BookTracker';
+import OgTracker from './components/OgTracker/OgTracker';
 import {Container} from 'react-bootstrap'
 
 class App extends Component {
@@ -47,8 +48,7 @@ class App extends Component {
               <Route path = "/add_new_book/" element = {<AddBook />} />
               <Route path = "/library/" element = {<LibraryView user={user} />} />
               <Route path = "/book_tracker/" element={<BookTracker user={user} />} />
-              {/* <Route path = "/og_tracker/" render={<OgTracker read_work="read_work" user={user} />} />
-              <Route path = '/wishlist/' render = {<Wishlist user={user} /> } /> */}
+              <Route path = "/og_tracker/" element={<OgTracker user={user} />} />
             </Routes>
         </Router>
       </Container>
