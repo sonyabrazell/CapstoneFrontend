@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Form, FormLabel, Container, Button, Row, Col } from 'react-bootstrap';
+import { Form, FormLabel, Container, Button, Row, Col, Alert } from 'react-bootstrap';
 import { Checkbox } from 'react-input-checkbox';
 
 
@@ -71,7 +71,9 @@ const AddBook = () => {
         console.log(response.data);
         if (response.request.status === 201)
         {
-            alert('Book added, thank you!');
+            <Alert variant="secondary">
+            Book Added, thank
+            </Alert>
         }
         
     }

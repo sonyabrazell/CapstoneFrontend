@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import AddBook from "../AddBook/AddBook";
-import { Container, Button, Badge, Row } from "react-bootstrap";
+import { Container, Button, Badge } from "react-bootstrap";
 import RelatedPopover from "../RelatedPopover/RelatedPopover";
 import './LibraryView.css'
 

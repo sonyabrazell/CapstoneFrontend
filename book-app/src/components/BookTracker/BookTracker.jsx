@@ -11,8 +11,18 @@ const BookTracker = ({user}) => {
     const [updatedBook, setUpdatedBook] = useState(true);
 
     useEffect(()=>{
-        getBooks()
-        displayReadBooks()
+        const displayReadBooks = () => {
+            getBooks()
+            let readBooks = books.filter((el) => {
+                console.log('el inside filter', el)
+                    return el.read_status === true
+            })
+            console.log(readBooks)
+            setReadBooks(readBooks)
+                let length = readBooks.length;
+                return setCount(length)
+        };
+        displayReadBooks();
     },[user.id])
     
     const getBooks = async () => {
@@ -22,19 +32,8 @@ const BookTracker = ({user}) => {
             setBooks(response.data)
         }        
     
-    const displayReadBooks = () => {
-        console.log('books inside displayRead: ', books)
-        let readBooks = books.filter((el) => {
-            console.log('el inside filter', el)
-                return el.read_status === true
-        })
-        console.log(readBooks)
-        setReadBooks(readBooks)
-            let length = readBooks.length;
-            return setCount(length)
-    }
     
-    const removeReadBook = async (book) => {
+    const removeReadBook = async () => {
         const jwt = localStorage.getItem('token');
         await axios.delete(`http://localhost:8000/library/book_tracker/delete/${books.id}`, {headers: {Authorization: 'Bearer ' + jwt}})
         updateBook(current => !current)

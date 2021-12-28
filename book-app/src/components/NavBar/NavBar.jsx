@@ -38,9 +38,9 @@ const Navigation = ({user}) => {
                                 <NavDropdown.Item eventKey="7.1" href="book_tracker/">Books</NavDropdown.Item>
                                 <NavDropdown.Item eventKey="7.2" href="og_tracker/">Original Works</NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Item>
+                            {/* <Nav.Item>
                                     <Nav.Link eventKey="6" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
-                                </Nav.Item>
+                                </Nav.Item> */}
                             <Nav.Item>
                             <Nav.Link eventKey="3" href="/logout">Log Out</Nav.Link>
                             </Nav.Item>

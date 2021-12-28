@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Container, Button, FormLabel, Row, Col, Alert } from "react-bootstrap";
 
-const AddOgWork = () => {
+const AddOgWork = ({user}) => {
 
     //allows user to add a read work to og_tracker
 
@@ -24,7 +24,7 @@ const AddOgWork = () => {
     }
 
     useEffect(()=> {
-        getCurrentUser();
+        getCurrentUser(user);
     },[])
 
     let getCurrentUser = async () => {
@@ -40,69 +40,70 @@ const AddOgWork = () => {
         console.log(response.data);
         if (response.request.status === 201)
         {
-            alert('Work added!')
+            <Alert variant="secondary">
+            Work Added, thank you!
+            </Alert>
         }
     }
 
     return ( 
-        <Container style={{flex: 1, width: "50%", padding: "10%"}}>
-            <FormLabel><h3>Add New Work</h3></FormLabel>
-            <Form id="add-work" onSubmit={(e)=> handleSubmit(e)}>
-                <Form.Group controlId="formWorkTitle">
-                    Title
-                    <Form.Control
-                    type="title"
-                    placeholder="Title"
-                    onChange={(e)=> setTitle(e.target.value)}
-                    value={title}
-                    />
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formWorkAuthor">
-                    Author
-                    <Form.Control
-                    type="author"
-                    placeholder="Author"
-                    onChange={(e)=> setAuthor(e.target.value)}
-                    value={author}
-                    />
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formWordCount">
-                    Word Count
-                    <Form.Control
-                    type="word count"
-                    placeholder="Word Count"
-                    onChange={(e)=> setWordCount(e.target.value)}
-                    value={wordCount}
-                    />
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formDateRead">
-                    Date Read
-                    <Form.Control
-                    type="date read"
-                    placeholder="Date Read"
-                    onChange={(e)=> setDateRead(e.target.value)}
-                    value={dateRead}
-                    />
-                </Form.Group>
-                &nbsp;
-                <Form.Group controlId="formLink">
-                    Source Link
-                    <Form.Control
-                    type="link"
-                    placeholder="Source Link"
-                    onChange={(e)=> setLink(e.target.value)}
-                    value={link}
-                    />
-                </Form.Group>
-                &nbsp; &nbsp;
-                <Button type="submit" variant="danger">
+        <React.Fragment>
+            <Container style={{padding: '20px', backgroundColor: '#f2acb9'}}>
+                <FormLabel><h2>Add Work</h2></FormLabel>
+                <Form onSubmit={(e)=> handleSubmit(e)}>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formGridTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control 
+                                type="title" 
+                                placeholder="Title"
+                                onChange={(e)=> setTitle(e.target.value)}
+                                value={title}/>
+                        </Form.Group>
+
+                        <Form.Group as={Col} controlId="formGridAuthor">
+                            <Form.Label>Author</Form.Label>
+                            <Form.Control 
+                                type="Author" 
+                                placeholder="Author"
+                                onChange={(e)=> setAuthor(e.target.value)}
+                                value={author} />
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formGridWordCount">
+                            <Form.Label>Word Count</Form.Label>
+                            <Form.Control 
+                                type="Word Count"
+                                placeholder="Word Count"
+                                onChange={(e)=> setWordCount(e.target.value)}
+                                value={wordCount}/>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="formDateRead">
+                            <Form.Label>Date Read</Form.Label>
+                            <Form.Control
+                                type="Date Read"
+                                placeholder="Date Read"
+                                onChange={(e)=> setDateRead(e.target.value)}
+                                value={dateRead} />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formLink">
+                            <Form.Label>Link</Form.Label>
+                            <Form.Control
+                                type="Link"
+                                placeholder="Link to Work"
+                                onChange={(e)=> setLink(e.target.value)}
+                                value={link} />
+                        </Form.Group>
+                    </Row>
+                <Button variant="danger" type="submit">
                     Submit
                 </Button>
             </Form>
         </Container>
+        </React.Fragment>
     );
 }
  
