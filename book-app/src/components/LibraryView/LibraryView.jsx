@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import AddBook from "../AddBook/AddBook";
 import { Container, Button, Badge } from "react-bootstrap";
 import RelatedPopover from "../RelatedPopover/RelatedPopover";
 import './LibraryView.css'
@@ -20,7 +19,6 @@ const LibraryView = () => {
         setBooks(response.data)
     }
 
-
     const removeBook = (bookId) => {
         const jwt = localStorage.getItem('token')
         axios.delete(`http://localhost:8000/library/delete/${bookId}`, { headers: { Authorization: 'Bearer ' + jwt } })
@@ -29,9 +27,10 @@ const LibraryView = () => {
 
     return (
         <React.Fragment>
-            <div align="center" >
-                <Container style={{paddingTop: '100px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
-                    <h1>Library</h1>
+            <div >
+                <div style={{paddingTop:"10%"}}/>
+                <Container style={{paddingTop: '20px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
+                    <h1 align="center">Library</h1>
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start'}}>
                 {books.map((element, index) =>
@@ -45,7 +44,7 @@ const LibraryView = () => {
                                     <h2 align ="right" className="card-title">{element.book_title}</h2>
                                     <h5 align="right">{element.book_author}</h5>
                                     <p align="right">ISBN: {element.book_isbn}</p>
-                                    <div style={{width: '200px', flexWrap: "wrap", justifyContent: "space-evenly", align: "right"}}>
+                                    <div align="right" style={{width: '200px', flexWrap: "wrap", justifyContent: "space-evenly"}}>
                                         <p align="right"> <Badge pill bg="dark">{element.book_genre}</Badge> &nbsp;
                                             
                                             <Badge pill bg="dark">{element.book_format}</Badge> &nbsp;
@@ -65,6 +64,7 @@ const LibraryView = () => {
                                                     <Badge pill bg="dark">Read</Badge>
                                                 ): ''} 
                                             </p>
+                                    {/* <p align="right">{element.first_sentence}</p> */}
                                     </div>    
                                                                         
                                 </div>
@@ -76,9 +76,6 @@ const LibraryView = () => {
                         </Container>
                     </div> 
                 )}
-                <Container>
-                    <AddBook />
-                </Container>
                 </Container>                            
             </div>
         </React.Fragment>

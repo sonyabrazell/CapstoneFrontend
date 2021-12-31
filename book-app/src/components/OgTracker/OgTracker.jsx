@@ -36,13 +36,13 @@ const OgTracker = ({user}) => {
     }
 
     return (
-        <div>
-            <h1 align="center" style={{paddingTop: '100px'}}>Og Work Tracker</h1>
+        <React.Fragment>
+            <div style={{paddingTop: "10%"}} />
+            <h1 align="center">Og Work Tracker</h1>
                 <Container align="left" style={{paddingTop: "20px"}}>
                     <ProgressBar striped variant="danger" now={count} label={`${count}`} />
                         <h5>YOU HAVE READ {count} ORIGINAL WORKS IN {new Date().getFullYear()}</h5>
                 </Container>
-                <React.Fragment>
                     <Table>
                         <thead>
                             <tr>
@@ -63,7 +63,6 @@ const OgTracker = ({user}) => {
                         <AddOgWork onSubmit={handleSubmit} onClick={()=> setCount(count+{wordCount})}/>
                     </Container>
         </React.Fragment>
-        </div> 
     );
 }
 

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Form, FormLabel, Container, Button, Row, Col, Alert } from 'react-bootstrap';
-import { Checkbox } from 'react-input-checkbox';
+import { Form, Container, Button, Row, Col, Alert } from 'react-bootstrap';
+import { Checkbox } from 'react-checkbox';
 
 
 const AddBook = () => {
@@ -25,6 +25,7 @@ const AddBook = () => {
     const [specialEdition, setSpecialEdition] = useState(false);
     const [firstEdition, setFirstEdition] = useState(false);
     const [signed, setSigned] = useState(false);
+    // const [sentence, setSentence] = useState('');
 
     const newBook = {
         user_id: userId,
@@ -32,6 +33,7 @@ const AddBook = () => {
         book_author: author,
         book_isbn: isbn,
         book_cover: cover,
+        // first_sentence: firstSentence,
         read_status: readStatus,
         date_read: dateRead,
         book_format: format,
@@ -58,6 +60,14 @@ const AddBook = () => {
         setCover(response.data)
     }
 
+    // const getSentence = async (isbn) => {
+    //     let response = await axios.get(`https://openlibrary.org/api/books?bibkeys=${isbn}&jscmd=details&format=json`);
+    //     console.log(response.data)
+    //     sentence = response.data.filter('first_sentence')
+    //     setSentence(sentence)
+    //     }
+    
+
     
 
     //add api for adding book, and then api to retrieve book cover into handle submit
@@ -65,6 +75,7 @@ const AddBook = () => {
     let handleSubmit = async (e) => {
         e.preventDefault();
         getCover(isbn)
+        // getSentence(first_sentence)
         console.log(newBook)
         const jwt = localStorage.getItem('token');
         let response = await axios.post('http://localhost:8000/library/library/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
@@ -72,7 +83,7 @@ const AddBook = () => {
         if (response.request.status === 201)
         {
             <Alert variant="secondary">
-            Book Added, thank
+            Book Added, thank you!
             </Alert>
         }
         
@@ -82,8 +93,9 @@ const AddBook = () => {
 
         // need to add a way to retrieve and set book cover from api after form submit
         <React.Fragment>
+            <div style={{paddingTop:"10%"}}/>
+            <h1 align="center">Add Book</h1>
             <Container style={{padding: '20px', backgroundColor: '#f2acb9'}}>
-                <FormLabel><h2>Add Book</h2></FormLabel>
                 <Form onSubmit={(e)=> handleSubmit(e)}>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridTitle">

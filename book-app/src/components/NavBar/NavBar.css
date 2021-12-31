@@ -7,6 +7,18 @@
     background-color: #f23a29;
 }
 
-.nav-pills:global(.active) {
-    background-color: #f23a29;
+.nav-pills:global {
+    color: #f23a29;
+}
+
+.nav-pills.active {
+    color: #f23a29;
+}
+
+.nav-pills .nav-pills.active {
+    background-color:#f23a29
+}
+
+.nav.nav-pills .nav-link.active {
+    background-color: #f23a29
 }

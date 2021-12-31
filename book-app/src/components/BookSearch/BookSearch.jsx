@@ -1,38 +1,48 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { Container, Button } from 'react-bootstrap'
 
-const BookSearch = (props) => {
+const BookSearch = ({user}) => { 
 
-    const [book, setBook] = useState('')
-    const [searchResults, setSearchResults] = useState('')
-
-
-    const getSearchResults = (searchFor) => {
-        let searchResults = book.filter(b => b.book_title.toLowerCase().includes(searchFor.toLowerCase()))
-        .map(books => (books));
-        setSearchResults(searchResults)
-    }
-
-    const getBooks = async () => {
-        let response = await axios.get(`https://openlibrary.org/search.json?q=${searchFor}`)
-        setBook(response.data); {
-
-        const {book_title: {book_author, book_isbn, book_cover}} = data
-    }} //to deconstruct json data from response
+    const [book, setBook] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
+    const [input, setInput] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let searchFor = document.getElementById('searchFor')
-        getBooks(searchFor)
-        getSearchResults(data)
-    } // getBooks takes search bar data to api request, getSearchResults filters and maps the response back.
+        const getBooks = async () => {
+            let response = await axios.get(`https://openlibrary.org/search.json?q=${input}&fields=*,availability&limit=6`)
+            let book = response.data;
+            console.log(book)
+            setBook(book)
+        };
+        getBooks(input);
+        setSearchResults(searchResults);
+        };
+    
+    const getSearchResults = () => {
+        transformResponse: [function(data) {
+            const json = JSON.parse(data)
+            const book_title = Object.keys(json['nested object'])
+            const book_cover = Object.keys(json['nested object'])
+            const book_author = Object.keys(json['nested object'])
+            const book_isbn = Object.keys(json['nested object'])
 
+            data = {
+                title: book_title,
+                cover: book_cover,
+                author_name: book_author,
+                isbn: book_isbn
+            }
+        }]
+    }
+    
     const handleClick = async (e, elementId) => {
         e.preventDefault();
         const jwt = localStorage.getItem('token')
         let payload = {
             userId: user.id,
-            book_isbn = elementId
+            book_isbn: elementId
         }
         let response = await axios.post('http://localhost:8000/library/books/', payload, {headers: {Authorization: 'Bearer ' + jwt}})
         console.log(response.data);
@@ -42,26 +52,29 @@ const BookSearch = (props) => {
         } //adds search result book to library
     }
 
-    
-
-    return ( 
-        <Container fluid>
+    return (
+        <React.Fragment>
+            <div style={{paddingTop: "10%"}}/>
+            <h1 align="center">Book Search</h1>
+        <Container style={{paddingTop:"20px"}} align="center" fluid>
             <div className="search-bar ui segment" >
                 <div className="field">
                     <form className="d-flex" className="product-style" onSubmit={(e) => handleSubmit(e)}>
                             <input
-                                id="searchFor"
-                                type="search"
-                                placeholder="Search"
+                                id="input"
+                                type="text"
+                                placeholder="Search by Title or Author"
                                 className="me-2"
                                 aria-label="Search"
+                                value={input}
+                                onChange={(e)=>setInput(e.target.value)}
                             />
                         <button type="submit" variant="danger">Search</button>
                     </form>
                 </div>
             </div>
-                {searchResults.map((element)=>
-            <div className="card mb-3" style={{width: '500px'}}>
+                {searchResults(book).map((element, index)=>
+            <div className="card mb-3" style={{width: '500px'}} key={index} >
                 <div className="row no-gutters">
                     <div className="col-md-4">
                         <svg
@@ -88,6 +101,7 @@ const BookSearch = (props) => {
             </div>
             )}
         </Container>
+        </React.Fragment>
     )
 }
 export default BookSearch;

@@ -6,20 +6,20 @@ import Navigation from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
-import './App.css';
 import RegisterUser from './components/Register/Register';
 import AddBook from './components/AddBook/AddBook';
 import LibraryView from './components/LibraryView/LibraryView';
 import BookTracker from './components/BookTracker/BookTracker';
 import OgTracker from './components/OgTracker/OgTracker';
+import BookSearch from './components/BookSearch/BookSearch';
 import {Container} from 'react-bootstrap'
+import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
       user: '',
-  
     }
   }
   
@@ -41,11 +41,12 @@ class App extends Component {
         <Router>
           <Navigation user={user}/>
             <Routes>
-              <Route path = "/" element = {<Dashboard />} />
+              <Route path = "/" element = {<Dashboard user={user} book_tracker={BookTracker} og_tracker={OgTracker} library={LibraryView}/>} />
               <Route path = "/login/" element = {<Login />} />
               <Route path = "/register/" element = {<RegisterUser />} />
               <Route path = "/logout/" element = {<Logout />} />
-              <Route path = "/add_new_book/" element = {<AddBook />} />
+              <Route path = "/add_new_book/" element = {<AddBook user={user}/>} />
+              {/* <Route path = "/book_search/" element = {<BookSearch user={user}/>} /> */}
               <Route path = "/library/" element = {<LibraryView user={user} />} />
               <Route path = "/book_tracker/" element={<BookTracker user={user} />} />
               <Route path = "/og_tracker/" element={<OgTracker user={user} />} />

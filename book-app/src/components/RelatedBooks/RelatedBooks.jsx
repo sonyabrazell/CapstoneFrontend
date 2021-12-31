@@ -6,7 +6,7 @@
 // const RelatedBooks = () => {
 
 //     const getBooks = async (book_genre) => {
-//         let response = await axios.get(`https://openlibrary.org/search.json?q=${book_genre}`)
+//         let response = await axios.get(`https://openlibrary.org/search.json?q=${book_isbn}`)
 //         setBook(response.data); {
 
 //         const {book_title: {book_author, book_isbn, book_cover}} = data
