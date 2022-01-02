@@ -3,7 +3,7 @@ import axios from "axios";
 import { Table, Container, ProgressBar, Button } from "react-bootstrap";
 import AddOgWork from "../AddOgWork/AddOgWork";
 
-const OgTracker = ({user}) => {
+const OgTracker = () => {
 
     const [wordCount, setWordCount] = useState(0)
     const [readWork, setReadWork] = useState([])
@@ -12,7 +12,7 @@ const OgTracker = ({user}) => {
 
     useEffect(()=> {
         getWork()
-    }, [user.id])
+    },[])
 
     const handleSubmit = async (e) => {
         e.PreventDefault();
@@ -21,9 +21,9 @@ const OgTracker = ({user}) => {
         setReadWork(response.data)
     } // on submit posting to og_tracker database
 
-    const removeReadWork = async () => {
+    const removeReadWork = async (workId) => {
         const jwt = localStorage.getItem('token')
-        await axios.delete(`http://localhost:8000/library/book_tracker/delete/`, {headers: {Authorization: 'Bearer ' + jwt }})
+        await axios.delete(`http://localhost:8000/library/og_tracker/`, workId, {headers: {Authorization: 'Bearer ' + jwt }})
         setCount(count - 1)
     }
 
@@ -43,9 +43,13 @@ const OgTracker = ({user}) => {
                     <ProgressBar striped variant="danger" now={count} label={`${count}`} />
                         <h5>YOU HAVE READ {count} ORIGINAL WORKS IN {new Date().getFullYear()}</h5>
                 </Container>
-                    <Table>
+                    <Table align="center">
                         <thead>
                             <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Word Count</th>
+                                <th>Date Read</th>
                                 <th>Link</th>
                             </tr>
                         </thead>
@@ -54,12 +58,12 @@ const OgTracker = ({user}) => {
                                     <tr key={index}>
                                         <td>
                                         </td>
-                                        <Button onClick={removeReadWork()} color = "danger">Delete Read Work</Button>
+                                        <Button onClick={removeReadWork(element.id)} color = "danger">Delete Read Work</Button>
                                     </tr>
                                         )}
                             </tbody>
                     </Table>
-                    <Container>
+                    <Container style={{paddingTop: '10px'}}>
                         <AddOgWork onSubmit={handleSubmit} onClick={()=> setCount(count+{wordCount})}/>
                     </Container>
         </React.Fragment>

@@ -1,17 +1,17 @@
 import axios from 'axios'
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Form, Container, Button, Row, Col, Alert } from 'react-bootstrap';
-import { Checkbox } from 'react-checkbox';
+import { Checkbox } from 'pretty-checkbox-react';
 
 
-const AddBook = () => {
+const AddBook = ({user}) => {
 
     //allows user to add book by entering info, then taking
     //user input and doing an api call to retrieve the book cover
     // and add all to library
 
-    const [userId, setUserId] = useState('');
+    // const [userId, setUserId] = useState({user});
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [isbn, setIsbn] = useState('');
@@ -25,10 +25,11 @@ const AddBook = () => {
     const [specialEdition, setSpecialEdition] = useState(false);
     const [firstEdition, setFirstEdition] = useState(false);
     const [signed, setSigned] = useState(false);
+    const [googleId, setGoogleId] = useState('');
     // const [sentence, setSentence] = useState('');
 
     const newBook = {
-        user_id: userId,
+        // user_id: userId,
         book_title: title,
         book_author: author,
         book_isbn: isbn,
@@ -45,18 +46,18 @@ const AddBook = () => {
         signed: signed,
     }    
 
-    useEffect(()=> {
-        getCurrentUser();
-    },[])
+    // useEffect(()=> {
+    //     setUserId({user})
+    // },[user])
 
-    let getCurrentUser = async () => {
-        const jwt = localStorage.getItem('token');
-        let response = await axios.get()
-        setUserId(response.data.id)
+    const getGoogleId = async (isbn) => {
+        let response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+        setGoogleId(response.data.items.id)
     }
 
-    const getCover = async (isbn) => {
-        let response = await axios.get(`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`)
+    const getCover = async () => {
+        getGoogleId(googleId)
+        let response = await axios.get(`https://books.google.com/books/content?id=${googleId}&printsec=frontcover&img=1&zoom=0&edge=curl&source=gbs_api`)
         setCover(response.data)
     }
 
@@ -67,9 +68,6 @@ const AddBook = () => {
     //     setSentence(sentence)
     //     }
     
-
-    
-
     //add api for adding book, and then api to retrieve book cover into handle submit
 
     let handleSubmit = async (e) => {
@@ -78,7 +76,7 @@ const AddBook = () => {
         // getSentence(first_sentence)
         console.log(newBook)
         const jwt = localStorage.getItem('token');
-        let response = await axios.post('http://localhost:8000/library/library/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
+        let response = await axios.post('http://localhost:8000/library/add_new_book/', newBook, {headers: {Authorization: 'Bearer ' + jwt}});
         console.log(response.data);
         if (response.request.status === 201)
         {
@@ -169,7 +167,7 @@ const AddBook = () => {
                     </Row>
                     <Row className='mb-3'>
                         <Form.Group as={Col} controlId="formCheckboxes" style={{padding: '5px'}}>
-                            <Checkbox value={series} onChange={(e)=> setSeries(e.target.checked)}> Series?</Checkbox> &nbsp; &nbsp; &nbsp;
+                            <Checkbox value={series} onChange={(e)=> setSeries(e.target.checked)}> Series?</Checkbox>
                             <Checkbox value={specialEdition} onChange={(e) => setSpecialEdition(e.target.checked)}> Special Edition?</Checkbox> &nbsp;
                             <Checkbox value={firstEdition} onChange={(e)=> setFirstEdition(e.target.checked)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;
                             <Checkbox value={signed} onChange={(e)=> setSigned(e.target.checked)}> Signed?</Checkbox> &nbsp; &nbsp; &nbsp;
@@ -189,7 +187,7 @@ const AddBook = () => {
                             <Form.Label>Date Read</Form.Label>
                             <Form.Control
                                 type="Date Read"
-                                placeholder="Date read, if applicable"
+                                placeholder="Date read, if applicable(YYYY-MM-DD)"
                                 onChange={(e)=> setDateRead(e.target.value)}
                                 value={dateRead} />
                         </Form.Group>

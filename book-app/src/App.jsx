@@ -41,15 +41,15 @@ class App extends Component {
         <Router>
           <Navigation user={user}/>
             <Routes>
-              <Route path = "/" element = {<Dashboard user={user} book_tracker={BookTracker} og_tracker={OgTracker} library={LibraryView}/>} />
-              <Route path = "/login/" element = {<Login />} />
-              <Route path = "/register/" element = {<RegisterUser />} />
-              <Route path = "/logout/" element = {<Logout />} />
-              <Route path = "/add_new_book/" element = {<AddBook user={user}/>} />
+              <Route path = "/" element = {<Dashboard user={user} book_tracker={BookTracker} og_tracker={OgTracker} library={LibraryView}/>} />,
+              <Route path = "/login/" element = {<Login />} />,
+              <Route path = "/register/" element = {<RegisterUser />} />,
+              <Route path = "/logout/" element = {<Logout />} />,
+              <Route path = "/library/add_new_book/" element = {<AddBook />} />,
               {/* <Route path = "/book_search/" element = {<BookSearch user={user}/>} /> */}
-              <Route path = "/library/" element = {<LibraryView user={user} />} />
-              <Route path = "/book_tracker/" element={<BookTracker user={user} />} />
-              <Route path = "/og_tracker/" element={<OgTracker user={user} />} />
+              <Route path = "/library/" element = {<LibraryView user={user} />} />,
+              <Route path = "/library/book_tracker/" element={<BookTracker />} />,
+              <Route path = "/library/og_tracker/" element={<OgTracker />} />,
             </Routes>
         </Router>
       </Container>

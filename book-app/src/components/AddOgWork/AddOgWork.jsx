@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Form, Container, Button, FormLabel, Row, Col, Alert } from "react-bootstrap";
+import { useState } from "react";
+import { Form, Container, Button, Row, Col, Alert } from "react-bootstrap";
 
-const AddOgWork = ({user}) => {
+const AddOgWork = () => {
 
     //allows user to add a read work to og_tracker
 
-    const [userId, setUserId] = useState('');
+    // const [userId, setUserId] = useState({user});
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [wordCount, setWordCount] = useState('');
@@ -15,7 +15,7 @@ const AddOgWork = ({user}) => {
     const [link, setLink] = useState('');
 
     const newWork = {
-        user: userId,
+        // user: userId,
         work_title: title,
         work_author: author,
         word_count: wordCount,
@@ -23,20 +23,14 @@ const AddOgWork = ({user}) => {
         work_link: link,
     }
 
-    useEffect(()=> {
-        getCurrentUser(user);
-    },[])
-
-    let getCurrentUser = async () => {
-        const jwt = localStorage.getItem('token');
-        let response = await axios.get('', {headers: {Authorization: 'Bearer ' + jwt}});
-        setUserId(response.data.id)
-    } //ensuring work is added to correct library tracker
+    // useEffect(()=> {
+    //     setUserId({user})
+    // },[user])
 
     let handleSubmit = async (e) => {
         e.preventDefault();
         const jwt = localStorage.getItem('token');
-        let response = await axios.post('http://localhost:8000/api/auth/library/og_tracker/', newWork, {headers: {Authorization: 'Bearer ' + jwt}});
+        let response = await axios.post('http://localhost:8000/library/og_tracker/', newWork, {headers: {Authorization: 'Bearer ' + jwt}});
         console.log(response.data);
         if (response.request.status === 201)
         {
@@ -48,8 +42,8 @@ const AddOgWork = ({user}) => {
 
     return ( 
         <React.Fragment>
+            <h2 align="center">Add Work</h2>
             <Container style={{padding: '20px', backgroundColor: '#f2acb9'}}>
-                <FormLabel><h2>Add Work</h2></FormLabel>
                 <Form onSubmit={(e)=> handleSubmit(e)}>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridTitle">
@@ -60,7 +54,6 @@ const AddOgWork = ({user}) => {
                                 onChange={(e)=> setTitle(e.target.value)}
                                 value={title}/>
                         </Form.Group>
-
                         <Form.Group as={Col} controlId="formGridAuthor">
                             <Form.Label>Author</Form.Label>
                             <Form.Control 
@@ -85,7 +78,7 @@ const AddOgWork = ({user}) => {
                             <Form.Label>Date Read</Form.Label>
                             <Form.Control
                                 type="Date Read"
-                                placeholder="Date Read"
+                                placeholder="Date Read (YYYY-MM-DD)"
                                 onChange={(e)=> setDateRead(e.target.value)}
                                 value={dateRead} />
                         </Form.Group>
@@ -106,5 +99,6 @@ const AddOgWork = ({user}) => {
         </React.Fragment>
     );
 }
- 
+
+
 export default AddOgWork;

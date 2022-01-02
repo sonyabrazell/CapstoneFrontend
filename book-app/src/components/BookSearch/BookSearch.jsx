@@ -8,33 +8,21 @@ const BookSearch = ({user}) => {
     const [searchResults, setSearchResults] = useState([]);
     const [input, setInput] = useState('');
 
+    let API_URL = `https://www.googleapis.com/books/v1/volumes`;
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const getBooks = async () => {
-            let response = await axios.get(`https://openlibrary.org/search.json?q=${input}&fields=*,availability&limit=6`)
-            let book = response.data;
-            console.log(book)
-            setBook(book)
+            const result = await axios.get(`${API_URL}?q=${input}`);
+            setBook(result.data);
         };
         getBooks(input);
         setSearchResults(searchResults);
         };
     
-    const getSearchResults = () => {
-        transformResponse: [function(data) {
-            const json = JSON.parse(data)
-            const book_title = Object.keys(json['nested object'])
-            const book_cover = Object.keys(json['nested object'])
-            const book_author = Object.keys(json['nested object'])
-            const book_isbn = Object.keys(json['nested object'])
-
-            data = {
-                title: book_title,
-                cover: book_cover,
-                author_name: book_author,
-                isbn: book_isbn
-            }
-        }]
+    const searchTermHandler = (e) => {
+        e.preventDefault();
+        setInput(e.target.value)
     }
     
     const handleClick = async (e, elementId) => {
@@ -59,7 +47,7 @@ const BookSearch = ({user}) => {
         <Container style={{paddingTop:"20px"}} align="center" fluid>
             <div className="search-bar ui segment" >
                 <div className="field">
-                    <form className="d-flex" className="product-style" onSubmit={(e) => handleSubmit(e)}>
+                    <form className="d-flex" onSubmit={(e) => handleSubmit(e)}>
                             <input
                                 id="input"
                                 type="text"
@@ -67,33 +55,31 @@ const BookSearch = ({user}) => {
                                 className="me-2"
                                 aria-label="Search"
                                 value={input}
-                                onChange={(e)=>setInput(e.target.value)}
-                            />
+                                onChange={searchTermHandler}/>
                         <button type="submit" variant="danger">Search</button>
                     </form>
                 </div>
             </div>
-                {searchResults(book).map((element, index)=>
+                {searchResults.items.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'}} key={index} >
                 <div className="row no-gutters">
                     <div className="col-md-4">
-                        <svg
+                        <img
                         className="bd-placeholder-img"
                         width="100%"
                         height="250"
-                        xmlns={element.book_cover}
+                        src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                        alt={`${element.volumeInfo.title}`}
                         aria-label="Book Cover"
-                        preserveAspectRatio='xMidyMid slice'
-                        role="img">
+                        preserveAspectRatio='xMidyMid slice'>
                             <title>Placeholder</title>
                             <rect width="100%" height="100%" fill="#f2acb9"/>
-                        </svg>
+                        </img>
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className ="card-title">Title: {element.book_title}</h5>
-                                <h2>Author: {element.book_author}</h2>
-                                <p>ISBN: {element.book_isbn}</p>
+                                <h2>Author: {element.volumeInfo.authors}</h2>
                             </div>
                         </div>
                 </div>

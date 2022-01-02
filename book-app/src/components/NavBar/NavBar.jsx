@@ -32,12 +32,12 @@ const Navigation = ({user}) => {
                         <React.Fragment>
                                 <NavDropdown title = "Library" id= "nav-dropdown">
                                     <NavDropdown.Item eventKey="3.1" href="/library">Library</NavDropdown.Item>
-                                    <NavDropdown.Item eventKey="3.2" href ="/add_new_book">Add Book</NavDropdown.Item>
-                                    <NavDropdown.Item eventKey="3.3" href ="/book_search">Book Search</NavDropdown.Item>
+                                    <NavDropdown.Item eventKey="3.2" href ="/library/add_new_book">Add Book</NavDropdown.Item>
+                                    <NavDropdown.Item eventKey="3.3" href ="/library/book_search">Book Search</NavDropdown.Item>
                                 </NavDropdown>
                             <NavDropdown title="Trackers" id="nav-dropdown">
-                                <NavDropdown.Item eventKey="4.1" href="book_tracker/">Books</NavDropdown.Item>
-                                <NavDropdown.Item eventKey="4.2" href="og_tracker/">Original Works</NavDropdown.Item>
+                                <NavDropdown.Item eventKey="4.1" href="/library/book_tracker/">Books</NavDropdown.Item>
+                                <NavDropdown.Item eventKey="4.2" href="/library/og_tracker/">Original Works</NavDropdown.Item>
                             </NavDropdown>
                             {/* <Nav.Item>
                                     <Nav.Link eventKey="6" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
