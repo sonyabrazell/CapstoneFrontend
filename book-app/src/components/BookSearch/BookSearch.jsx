@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Container, Button } from 'react-bootstrap'
+import { Container, Button, Alert } from 'react-bootstrap'
 
-const BookSearch = ({user}) => { 
+const BookSearch = () => { 
 
     const [book, setBook] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -13,13 +13,12 @@ const BookSearch = ({user}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const getBooks = async () => {
-            const result = await axios.get(`${API_URL}?q=${input}`);
-            console.log(result.data)
-            setBook(result.data);
+            const searchResults = await axios.get(`${API_URL}?q=${input}`);
+            console.log(searchResults.data.items)
+            setSearchResults(searchResults);
         };
         getBooks(input);
         console.log(input)
-        setSearchResults(searchResults);
         };
     
     const searchTermHandler = (e) => {
@@ -30,15 +29,13 @@ const BookSearch = ({user}) => {
     const handleClick = async (e, elementId) => {
         e.preventDefault();
         const jwt = localStorage.getItem('token')
-        let payload = {
-            userId: user.id,
-            book_isbn: elementId
-        }
-        let response = await axios.post('http://localhost:8000/library/books/', payload, {headers: {Authorization: 'Bearer ' + jwt}})
+        let response = await axios.post('http://localhost:8000/library/books/', elementId, {headers: {Authorization: 'Bearer ' + jwt}})
         console.log(response.data);
         if (response.request.status === 201)
         {
-            alert('Book added to library, thank you')
+            <Alert variant="secondary">
+                Book added to library, thank you!
+            </Alert>
         } //adds search result book to library
     }
 
@@ -64,7 +61,7 @@ const BookSearch = ({user}) => {
             </div>
             </Container>
             <Container>
-                {searchResults.map((element, index)=>
+                {searchResults.data.items.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'}} key={index} >
                 <div className="row no-gutters">
                     <div className="col-md-4">
@@ -72,8 +69,8 @@ const BookSearch = ({user}) => {
                         className="bd-placeholder-img"
                         width="100%"
                         height="250"
-                        src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                        alt={`${element.title}`}
+                        src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                        alt={`${element.volumeId.title}`}
                         aria-label="Book Cover"
                         preserveAspectRatio='xMidyMid slice'>
                             <title>Placeholder</title>
@@ -82,12 +79,12 @@ const BookSearch = ({user}) => {
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className ="card-title">Title: {element.title}</h5>
-                                <h2>Author: {element.authors}</h2>
+                                <h5 className ="card-title">Title: {element.volumeId.title}</h5>
+                                <h2>Author: {element.volumeId.authors}</h2>
                             </div>
                         </div>
                 </div>
-                    <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
+                    <Button variant="danger" onClick={(e) => handleClick(e, element.volumeId.id)}>Add to Library</Button>
             </div>
             )}
         </Container>

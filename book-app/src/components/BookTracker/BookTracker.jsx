@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ProgressBar, Container, Button } from "react-bootstrap";
+import BookSearch from "../BookSearch/BookSearch";
 
 
-const BookTracker = () => {
+const BookTracker = (books) => {
 
     const [readBooks, setReadBooks] = useState([]);
     const [count, setCount] = useState(0);
-    const [books, setBooks] = useState([]);
     const [updatedBook, setUpdatedBook] = useState(true);
 
     useEffect(() => {
-        const displayReadBooks = () => {
-            getBooks(books);
-            let readBooks = books.filter((books) => {
-                console.log('books inside filter', books);
-                    return books.read_status === true;
-            })
-                console.log(readBooks);
-                setReadBooks(readBooks);
+        const displayReadBooks = (books) => {
+            if ( books.read_status === true )
+            {
+                setReadBooks()
+            }
                 displayLength(readBooks);
-            };
+            }
             displayReadBooks();
     }, [])
-
-    const getBooks = async () => {
-        const jwt = localStorage.getItem('token');
-        let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt }})
-            console.log(response.data)
-            setBooks(response.data);
-        }
     
     const displayLength = (readBooks) => {
         let length = readBooks.length;

@@ -1,10 +1,10 @@
 import React from "react";
 import RelatedBooks from "../RelatedBooks/RelatedBooks";
 import { useEffect, useState,  } from "react";
-import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { Popover, OverlayTrigger, Button,  } from "react-bootstrap";
 
 
-const RelatedPopover = () => {
+const RelatedPopover = (books) => {
 
     const UpdatingPopover = React.forwardRef(
         ({ popper, children, show: _, ...props }, ref) => {
@@ -17,7 +17,7 @@ const RelatedPopover = () => {
             <Popover ref={ref} body {...props}>
                 {children}
             </Popover>
-        );
+        )
         },
     );
     
@@ -51,7 +51,11 @@ const RelatedPopover = () => {
         );
     }
     
-return (<RelatedPop />);
+return (
+    <React.Fragment>
+        <RelatedBooks books={books}/>;
+        <RelatedPop />;
+    </React.Fragment>);
 
 }
 

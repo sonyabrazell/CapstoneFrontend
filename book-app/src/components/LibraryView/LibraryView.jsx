@@ -1,36 +1,33 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import { Container, Button, Badge } from "react-bootstrap";
 import RelatedPopover from "../RelatedPopover/RelatedPopover";
 import './LibraryView.css'
 
-const LibraryView = () => {
+const LibraryView = (books) => {
 
-    const [books, setBooks] = useState([]);
-    const [updatedBook, setUpdatedBook] = useState(true);
+    const [book, setBook] = useState([]);
+    const [updatedBook, setUpdatedBook] = useState([]);
 
-    useEffect(() => {
-        getBooks()
-    },[updatedBook])
-    
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
-        setBooks(response.data)
-    }
+        setBook(response.data)
+        console.log(book)
+        }
 
     const removeBook = (bookId) => {
         const jwt = localStorage.getItem('token')
         axios.delete(`http://localhost:8000/library/books`, bookId, { headers: { Authorization: 'Bearer ' + jwt } })
         getBooks()
-    }
-
+        }
+    
     const updateBook = async () => {
         const jwt = localStorage.getItem('token')
-        let response = await axios.post(`http://localhost:8000/library/library/`, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
+        let response = await axios.post(`http://localhost:8000/library/library/`, updatedBook, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
         setUpdatedBook(response.data)
-    }
+        }
 
     return (
         <React.Fragment>
@@ -78,7 +75,7 @@ const LibraryView = () => {
                         <br></br>
                         
                         <Container style={{justifyContent: "flex-start"}}>
-                            <RelatedPopover /> &nbsp; <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
+                            <RelatedPopover books={books}/> &nbsp; <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
                         </Container>
                     </div> 
                 )}
