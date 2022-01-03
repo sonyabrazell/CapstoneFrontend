@@ -50,8 +50,10 @@ const AddBook = ({user}) => {
     //     setUserId({user})
     // },[user])
 
+    let API_URL = `https://www.googleapis.com/books/v1/volumes`;
+
     const getGoogleId = async (isbn) => {
-        let response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+        let response = await axios.get(`${API_URL}?q=isbn:${isbn}`);
         setGoogleId(response.data.items.id)
     }
 

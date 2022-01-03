@@ -14,9 +14,11 @@ const BookSearch = ({user}) => {
         e.preventDefault();
         const getBooks = async () => {
             const result = await axios.get(`${API_URL}?q=${input}`);
+            console.log(result.data)
             setBook(result.data);
         };
         getBooks(input);
+        console.log(input)
         setSearchResults(searchResults);
         };
     
@@ -44,9 +46,9 @@ const BookSearch = ({user}) => {
         <React.Fragment>
             <div style={{paddingTop: "10%"}}/>
             <h1 align="center">Book Search</h1>
-        <Container style={{paddingTop:"20px"}} align="center" fluid>
-            <div className="search-bar ui segment" >
-                <div className="field">
+        <Container style={{paddingTop:"20px", align:"center"}} align="center">
+            <div className="search-bar ui segment" align="center">
+                <div className="field" align="center">
                     <form className="d-flex" onSubmit={(e) => handleSubmit(e)}>
                             <input
                                 id="input"
@@ -60,7 +62,9 @@ const BookSearch = ({user}) => {
                     </form>
                 </div>
             </div>
-                {searchResults.items.map((element, index)=>
+            </Container>
+            <Container>
+                {searchResults.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'}} key={index} >
                 <div className="row no-gutters">
                     <div className="col-md-4">
@@ -69,7 +73,7 @@ const BookSearch = ({user}) => {
                         width="100%"
                         height="250"
                         src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                        alt={`${element.volumeInfo.title}`}
+                        alt={`${element.title}`}
                         aria-label="Book Cover"
                         preserveAspectRatio='xMidyMid slice'>
                             <title>Placeholder</title>
@@ -78,8 +82,8 @@ const BookSearch = ({user}) => {
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className ="card-title">Title: {element.book_title}</h5>
-                                <h2>Author: {element.volumeInfo.authors}</h2>
+                                <h5 className ="card-title">Title: {element.title}</h5>
+                                <h2>Author: {element.authors}</h2>
                             </div>
                         </div>
                 </div>

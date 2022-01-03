@@ -41,7 +41,9 @@ const OgTracker = () => {
             <h1 align="center">Og Work Tracker</h1>
                 <Container align="left" style={{paddingTop: "20px"}}>
                     <ProgressBar striped variant="danger" now={count} label={`${count}`} />
-                        <h5>YOU HAVE READ {count} ORIGINAL WORKS IN {new Date().getFullYear()}</h5>
+                        <h5>YOU HAVE READ {count} ORIGINAL WORKS</h5>
+                    <ProgressBar variant="danger" now={wordCount} label={`${wordCount}`}/>
+                        <h5>YOU HAVE READ {wordCount} WORDS</h5>
                 </Container>
                     <Table align="center">
                         <thead>
