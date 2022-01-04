@@ -18,7 +18,7 @@ const OgTracker = () => {
         e.PreventDefault();
         const jwt = localStorage.getItem('token')
         let response = await axios.post('http://localhost:8000/library/og_tracker', readWork, {headers: {Authorization: 'Bearer ' + jwt }})
-        setReadWork(response.data)
+        setReadWork(response.json)
     } // on submit posting to og_tracker database
 
     const removeReadWork = async (workId) => {
@@ -30,8 +30,8 @@ const OgTracker = () => {
     const getWork = async () => {
         const jwt =localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/og_tracker', {header: {Authorization: 'Bearer ' + jwt }})
-        setWork(response.data)
-        setWordCount(response.data.word_count)
+        setWork(response.json)
+        setWordCount(work.word_count)
         
     }
 

@@ -17,7 +17,8 @@ const LibraryView = () => {
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
-        setBooks(response.data.items)
+        console.log(response.json)
+        setBooks(response.json)
     }
 
     const removeBook = async (e, elementId) => {
@@ -31,7 +32,7 @@ const LibraryView = () => {
         e.preventDefault();
         const jwt = localStorage.getItem('token')
         let response = await axios.post(`http://localhost:8000/library/library/`, elementId, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
-        setUpdatedBook(response.data)
+        setUpdatedBook(response.json)
     }
 
     return (

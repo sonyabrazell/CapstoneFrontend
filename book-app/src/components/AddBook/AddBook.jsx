@@ -60,7 +60,7 @@ const AddBook = ({user}) => {
     const getCover = async () => {
         getGoogleId(googleId)
         let response = await axios.get(`https://books.google.com/books/content?id=${googleId}&printsec=frontcover&img=1&zoom=0&edge=curl&source=gbs_api`)
-        setCover(response.data)
+        setCover(response.json)
     }
 
     // const getSentence = async (isbn) => {

@@ -5,7 +5,7 @@ const AddReadBook = () => {
 
     const [readBook, setReadBook] = useState('')
 
-    const handleChange = (e) => {
+    const handleClick = (e) => {
         setReadBook(e.target.value);
      }; //handle change on submit
 
@@ -98,7 +98,7 @@ const AddReadBook = () => {
                             <Checkbox value={signed} onChange={(e)=> setSigned(e.target.checked)}> Signed?</Checkbox>
                         </Form.Group>
                     </Row>
-                <Button variant="danger" type="submit">
+                <Button variant="danger" type="submit" onClick={((e)=>{handleClick(e)})}>
                     Submit
                 </Button>
             </Form>

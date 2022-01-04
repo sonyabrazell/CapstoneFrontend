@@ -13,8 +13,8 @@ const BookSearch = () => {
         e.preventDefault();
         const getBooks = async () => {
             const searchResults = await axios.get(`${API_URL}?q=${input}`);
-            console.log(searchResults.data.items)
-            setSearchResults(searchResults.data.items) 
+            console.log(searchResults.json)
+            setSearchResults(searchResults.json) 
             .then((data) => data = [
                     {
                         book_title: '',
@@ -68,7 +68,7 @@ const BookSearch = () => {
             </div>
             </Container>
             <Container>
-                {searchResults.map((element, index)=>
+                {searchResults.data.items.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'}} key={index} >
                 <div className="row no-gutters">
                     <div className="col-md-4">

@@ -9,7 +9,7 @@ const RelatedBooks = () => {
     const getRelatedBooks = async (book_genre) => {
         let API_URL = `https://www.googleapis.com/books/v1/volumes`;
         let response = await axios.get(`${API_URL}?q=${book_genre}`)
-            setRelatedBooks(response.data.items)
+            setRelatedBooks(response.json)
     }
 
     const handleClick = async (e, elementId) => {
@@ -33,10 +33,9 @@ const RelatedBooks = () => {
         }
     ]
     
-
     return ( 
         <Container fluid>
-                {relatedBooks.map((element, index)=>
+                {relatedBooks.data.items.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'} key={index}}>
                 <div className="row no-gutters">
                     <div className="col-md-4">

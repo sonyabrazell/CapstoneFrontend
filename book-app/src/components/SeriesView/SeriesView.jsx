@@ -3,9 +3,21 @@ import axios from "axios";
 
 const SeriesView = () => {
 
-    //add table column to have an optional field for series name. 
-    //get call for all books in a column with matching series name field
-    //map display
+    const [books, setBooks] = useState([]);
+    const [series, setSeries] = useState([]);
+
+
+    useEffect(() => {
+        getBooks();
+        setSeries(books.filter((book) => book.series === true));
+        console.log(series)
+        }, [books])
+
+    const getBooks = async () => {
+        const jwt = localStorage.getItem('token')
+        let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
+        setBooks(response.json)
+    }
 
     return ( 
         <React.Fragment>
@@ -20,7 +32,7 @@ const SeriesView = () => {
                             </tr>
                         </thead>
                             <tbody>
-                                {work.map((element, index) => 
+                                {series.map((element, index) => 
                                     <tr key={index}>
                                         <td>
                                             {element.book_title}
