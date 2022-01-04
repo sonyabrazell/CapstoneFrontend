@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 const Logout = () => {
     
@@ -9,11 +9,14 @@ const Logout = () => {
     }
 
     return (
+        <Container style={{paddingTop: '10%'}}>
         <div align="center">
             <h2>Are you sure you want to logout?</h2>
             &nbsp;
             <Button variant="danger" type="submit" onClick={(e)=> deleteToken(e)}>Logout</Button>
+            <button type="danger" onClick={() => window.location = '/'}>Return Home</button>
         </div>
+        </Container>
     )
 }
 

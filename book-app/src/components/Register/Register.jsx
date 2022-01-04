@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import { Form, FormLabel, Container, Button } from 'react-bootstrap';
+import { Form, FormLabel, Container, Button, Alert} from 'react-bootstrap';
 
 const RegisterUser = () => {
 
     const [firstName, setFirstName] = useState('');
+    const [middleName, setMiddleName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -13,6 +14,7 @@ const RegisterUser = () => {
     const newUser = {
         firstName: firstName,
         lastName: lastName,
+        middleName: middleName,
         userName: userName,
         password: password,
         email: email,
@@ -25,14 +27,15 @@ const RegisterUser = () => {
         );
         console.log(response.data);
         if (response.request.status === 201) {
-            alert("Registration complete. Please sign in.");
+            <Alert>
+                Registration complete! Please sign in.
+            </Alert>
             return (window.location = "/login")
         }
     }
     return ( 
         <div align ="center">
-            
-            <Container style ={{flex: 1, width: "50%", padding: "10px"}}>
+            <Container style ={{flex: 1, width: "50%", padding: "10px", paddingTop:'10%'}}>
                 <FormLabel><h1>Registration</h1></FormLabel>
                 <Form id="contact-form" onSubmit={(e)=> handleSubmit(e)}>
                     <Form.Group controlId="formBasicFirstName">
@@ -42,6 +45,15 @@ const RegisterUser = () => {
                             onChange={(e) => setFirstName(e.target.value)}
                             value={firstName}
                             width="50%"/>
+                    </Form.Group>
+                    &nbsp;
+                    <Form.Group controlId="formBasicMiddleName">
+                        <Form.Control
+                        type="name"
+                        placeholder="Middle Name"
+                        onChange={(e) => setMiddleName(e.target.value)}
+                        value={middleName}
+                        />
                     </Form.Group>
                     &nbsp;
                     <Form.Group controlId="formBasicLastName">

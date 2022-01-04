@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import DataVisualization from "../DataVisualization/DataVisualization";
 
 
 const Dashboard = () => {
@@ -18,6 +19,7 @@ return (
     <React.Fragment>
         <div style={{paddingTop:'20%'}}/>
             <Container flex style={{flexWrap:'wrap', alignContent:'space-around'}}>
+                <DataVisualization />
             </Container>
     </React.Fragment>
 )}

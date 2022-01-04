@@ -35,7 +35,7 @@ const LibraryView = () => {
 
     return (
         <React.Fragment>
-            <div >
+            <div>
                 <div style={{paddingTop:"10%"}}/>
                 <Container style={{paddingTop: '20px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
                     <h1 align="center">Library</h1>
@@ -66,21 +66,22 @@ const LibraryView = () => {
                                             <Badge pill bg="dark">Signed</Badge>
                                         ) : ''}
                                             {element.book_series === true ? (
-                                                    <Badge pill bg="dark" href='API_view'{element.series_name}</Badge>,
-                                                    
-                                                ): ''}
-                                                {element.read_status === true ? (
-                                                    <Badge pill bg="dark">Read</Badge>
-                                                ): ''} 
+                                            <Badge pill bg="dark" >{element.series_name}</Badge>
+                                        ): ''}
+                                            {element.read_status === true ? (
+                                            <Badge pill bg="dark">Read</Badge>
+                                        ): ''} 
                                     {/* <p align="right">{element.first_sentence}</p> */}
                                         </div>    
                                     </div>
                                 </div>
                             </div>
                         <br></br>
-                        
                         <Container style={{justifyContent: "flex-start"}}>
-                            <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
+                            <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; 
+                            {element.read_status === false ? (
+                            <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
+                            ): ''}
                         </Container>
                     </div> 
                 )}

@@ -23,8 +23,8 @@ const Login = () => {
 
     return ( 
         <div>
-            <Container style ={{flex: 1, width: "50%", padding: "10px"}}>
-                <FormLabel><h1>Login</h1></FormLabel>
+            <Container align="center" style ={{flex: 1, width: "50%", padding: "10px", paddingTop:'10%'}}>
+                <FormLabel><h1 align="center">Login</h1></FormLabel>
                 <Form id="contact-form" onSubmit={onFormSubmit}>
                     <Form.Group controlId="formBasicUsername">
                         <Form.Control
@@ -43,8 +43,8 @@ const Login = () => {
                             value={userPassword}
                             onChange={(e) => setUserPassword(e.target.value)}/>
                     </Form.Group>
-                    &nbsp;
-                    <Button type="submit">Submit</Button>
+                    &nbsp;<br></br>
+                    <Button variant= "danger" type="submit">Submit</Button>
                 </Form>
             </Container>
         </div>

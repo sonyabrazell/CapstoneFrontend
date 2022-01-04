@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
+import { Popover, Table, Overlay, OverlayTrigger, Button } from "react-bootstrap";
+
 
 const SeriesView = () => {
 
@@ -23,7 +25,7 @@ const SeriesView = () => {
         <Popover id="popover-basic">
         <Popover.Header as="h3">Series View</Popover.Header>
         <Popover.Body>
-            Click here to look at books in a series.
+            
         </Popover.Body>
         </Popover>
     );
@@ -37,6 +39,7 @@ const SeriesView = () => {
 
     return ( 
         <React.Fragment>
+        <SeriesPopover >
             <div style={{paddingTop: "10%"}} />
             <h1 align="center">Book Series</h1>
                     <Table align="center">
@@ -59,16 +62,11 @@ const SeriesView = () => {
                                         <td>
                                             {element.series_name}
                                         </td>
-                                        <td>
-                                        <Button onClick={removeReadWork(element.id)} color = "danger">Delete Read Work</Button>
-                                        </td>
                                     </tr>
                                         )}
                             </tbody>
                     </Table>
-                    <Container style={{paddingTop: '10px'}}>
-                        <SeriesPopover onSubmit={handleSubmit()} onClick={()=> setCount(count()+{wordCount()})}/>
-                    </Container>
+                </SeriesPopover>
         </React.Fragment>
     );
 }

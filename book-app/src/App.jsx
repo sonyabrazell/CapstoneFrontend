@@ -12,6 +12,7 @@ import LibraryView from './components/LibraryView/LibraryView';
 import BookTracker from './components/BookTracker/BookTracker';
 import OgTracker from './components/OgTracker/OgTracker';
 import BookSearch from './components/BookSearch/BookSearch';
+import SeriesView from './components/SeriesView/SeriesView';
 import {Container} from 'react-bootstrap'
 import './App.css';
 
@@ -50,6 +51,7 @@ class App extends Component {
               <Route path = "/library/" element = {<LibraryView user={user} />} />,
               <Route path = "/library/book_tracker/" element={<BookTracker />} />,
               <Route path = "/library/og_tracker/" element={<OgTracker />} />,
+              <Route path = "/library/series_view/" element={<SeriesView />} />,
             </Routes>
         </Router>
       </Container>

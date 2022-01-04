@@ -31,22 +31,22 @@ const Navigation = ({user}) => {
                     {user && (
                         <React.Fragment>
                                 <NavDropdown title = "Library" id= "nav-dropdown">
-                                    <NavDropdown.Item eventKey="3.1" href="/library">Library</NavDropdown.Item>
-                                    <NavDropdown.Item eventKey="3.2" href ="/library/add_new_book">Add Book</NavDropdown.Item>
-                                    <NavDropdown.Item eventKey="3.3" href ="/library/book_search">Book Search</NavDropdown.Item>
+                                    <NavDropdown.Item eventKey="3.1" href="/library/">Library</NavDropdown.Item>
+                                    <NavDropdown.Item eventKey="3.2" href ="/library/add_new_book/">Add Book</NavDropdown.Item>
+                                    <NavDropdown.Item eventKey="3.3" href ="/library/series_view/">Series View</NavDropdown.Item>
                                 </NavDropdown>
                             <NavDropdown title="Trackers" id="nav-dropdown">
                                 <NavDropdown.Item eventKey="4.1" href="/library/book_tracker/">Books</NavDropdown.Item>
                                 <NavDropdown.Item eventKey="4.2" href="/library/og_tracker/">Original Works</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Item>
-                                <Nav.Link eventKey="5" href="library/book_search">Search</Nav.Link>
+                                <Nav.Link eventKey="5" href="library/book_search/">Search</Nav.Link>
                             </Nav.Item>
                             {/* <Nav.Item>
                                     <Nav.Link eventKey="7" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>
                                 </Nav.Item> */}
                             <Nav.Item>
-                            <Nav.Link eventKey="6" href="/logout">Log Out</Nav.Link>
+                            <Nav.Link eventKey="6" href="/logout/">Log Out</Nav.Link>
                             </Nav.Item>
                     </React.Fragment>
                     )}

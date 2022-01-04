@@ -25,13 +25,13 @@ const BookTracker = () => {
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
-        setBooks(response.json)
+        setBooks(response.data)
     }
     
     const updateBook = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.post(`http://localhost:8000/library/library/`, updatedBook, {headers: {Authorization: 'Bearer: ' + jwt}})
-        setUpdatedBook(response.json)
+        setUpdatedBook(response.data)
     } // takes removed book and updates read status to false
     
     const handleClick = async (e, elementId) => {

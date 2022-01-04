@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Container, Alert } from "react-bootstrap";
 
@@ -6,10 +6,22 @@ const RelatedBooks = () => {
 
     const [relatedBooks, setRelatedBooks] = useState([]);
 
+    const book_genre = document.getElementById('book_genre').value
+
+    useEffect(() => {
+        getRelatedBooks(book_genre)
+    },[book_genre])
+
     const getRelatedBooks = async (book_genre) => {
         let API_URL = `https://www.googleapis.com/books/v1/volumes`;
         let response = await axios.get(`${API_URL}?q=${book_genre}`)
-            setRelatedBooks(response.json)
+            console.log(response.json)
+            .then((res) => res.json())
+            .then((data) => {
+            data.items.forEach(book => {
+            setRelatedBooks(book);
+            });
+        });
     }
 
     const handleClick = async (e, elementId) => {
@@ -23,20 +35,11 @@ const RelatedBooks = () => {
                 Book added to library, thank you!
             </Alert>
         }} //adds search result book to library
-
-    const relatedBooks = [
-        {
-            book_title: '',
-            book_author: '',
-            book_isbn: '',
-            book_cover: '',
-        }
-    ]
     
     return ( 
         <Container fluid>
                 {relatedBooks.data.items.map((element, index)=>
-            <div className="card mb-3" style={{width: '500px'} key={index}}>
+            <div className="card mb-3" style={{width: '500px'}} key={index}>
                 <div className="row no-gutters">
                     <div className="col-md-4">
                         <svg
@@ -59,12 +62,14 @@ const RelatedBooks = () => {
                             </div>
                         </div>
                 </div>
+                <div>
                     <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
+                </div>
             </div>
-        )}
+        )};
         </Container>
     )
-}}
+}
 
 export default RelatedBooks;
 

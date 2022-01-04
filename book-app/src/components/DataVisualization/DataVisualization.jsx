@@ -3,25 +3,12 @@
 // // works read by month
 // // year to date books read
 // // year to date words read
-// import React from 'react';
-// import {Chart as ChartJS, CategoryScale, LinearScale, PointElement,
-//         LineElement,Title,Tooltip,Legend,ArcElement,} from 'chart.js';
-// import { Bar, Doughnut } from 'react-chartjs-2';
+// import React, { PureComponent } from 'react';
+// import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 // import { Container } from 'react-bootstrap';
 
 
 // const DataVisualization = () => {
-
-//     ChartJS.register(
-//         ArcElement,
-//         CategoryScale,
-//         LinearScale,
-//         PointElement,
-//         LineElement,
-//         Title,
-//         Tooltip,
-//         Legend
-//     );
 
 //     const readByMonthOptions = {
 //         responsive: true,
@@ -42,15 +29,11 @@
 //         },},
 //     };
 
-//     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+//     const monthLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 //     const readByMonthData = {
-//         labels,
-//         datasets: [
-//             {
-//             label: 'Read Books',
-//             // data: labels.map(() => readBooks.datatype.number({ min: 0, max: 500 })),
-//             borderColor: 'rgb(255, 99, 132)',
+//             // // data: labels.map(() => readBooks.datatype.number({ min: 0, max: 500 })),
+//             // borderColor: 'rgb(255, 99, 132)',
 //             backgroundColor: 'rgba(255, 99, 132, 0.5)',
 //             },
 //             {
@@ -64,7 +47,7 @@
 
 //     const wordsByMonthData = {
         
-//         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October','November','December'],
+//         monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October','November','December'],
 //         datasets: [
 //             {
 //                 label: 'Words Read by Month',
@@ -88,16 +71,29 @@
 //     }
 
 
+
+
 // return (
 //     <React.Fragment>
 //         <h3 align="left">Hey there, reader.</h3>
 //         <div style={{paddingTop:'20%'}}/>
-//             <Container flex style={{flexWrap:'wrap', alignContent:'space-around'}}>
-//                 {/* <Bar options={readByMonthOptions} data={readByMonthData} /> */}
-//             </Container>
-//             <Container>
-//                 {/* <Doughnut options={wordsByMonthOptions} data={wordsByMonthData} /> */}
-//             </Container>
+//         <ResponsiveContainer width="100%" height="100%">
+//             <PieChart width={400} height={400}>
+//                 <Pie
+//                     dataKey="value"
+//                     isAnimationActive={false}
+//                     data={data01}
+//                     cx="50%"
+//                     cy="50%"
+//                     outerRadius={80}
+//                     fill="#8884d8"
+//                     label
+//                 />
+//             <Pie dataKey="value" data={data02} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+//                 <Tooltip />
+//             </PieChart>
+//         </ResponsiveContainer>
+//     );
 //     </React.Fragment>
 // )}
 
