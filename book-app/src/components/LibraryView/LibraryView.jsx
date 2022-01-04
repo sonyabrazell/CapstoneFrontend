@@ -17,22 +17,20 @@ const LibraryView = () => {
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
-        console.log(response.json)
-        setBooks(response.json)
+        console.log(response.data)
+        setBooks(response.data)
     }
 
-    const removeBook = async (e, elementId) => {
-        e.preventDefault();
+    const removeBook = async (bookId) => {
         const jwt = localStorage.getItem('token')
-        axios.delete(`http://localhost:8000/library/books`, elementId, { headers: { Authorization: 'Bearer ' + jwt } })
+        axios.delete(`http://localhost:8000/library/books`, bookId, { headers: { Authorization: 'Bearer ' + jwt } })
         getBooks()
     }
 
-    const updateBook = async (e, elementId) => {
-        e.preventDefault();
+    const updateBook = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.post(`http://localhost:8000/library/library/`, elementId, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
-        setUpdatedBook(response.json)
+        setUpdatedBook(response.data)
     }
 
     return (
