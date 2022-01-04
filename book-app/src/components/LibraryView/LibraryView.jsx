@@ -2,8 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Container, Button, Badge } from "react-bootstrap";
-import RelatedPopover from "../RelatedPopover/RelatedPopover";
 import './LibraryView.css'
+import SeriesView from "../SeriesView/SeriesView";
 
 const LibraryView = () => {
 
@@ -27,9 +27,9 @@ const LibraryView = () => {
         getBooks()
     }
 
-    const updateBook = async () => {
+    const updateBook = async (bookId) => {
         const jwt = localStorage.getItem('token')
-        let response = await axios.post(`http://localhost:8000/library/library/`, elementId, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
+        let response = await axios.post(`http://localhost:8000/library/library/`, bookId, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
         setUpdatedBook(response.data)
     }
 
@@ -66,7 +66,8 @@ const LibraryView = () => {
                                             <Badge pill bg="dark">Signed</Badge>
                                         ) : ''}
                                             {element.book_series === true ? (
-                                                    <Badge pill bg="dark">{element.series_name}</Badge>
+                                                    <Badge pill bg="dark" href='API_view'{element.series_name}</Badge>,
+                                                    
                                                 ): ''}
                                                 {element.read_status === true ? (
                                                     <Badge pill bg="dark">Read</Badge>
@@ -79,7 +80,7 @@ const LibraryView = () => {
                         <br></br>
                         
                         <Container style={{justifyContent: "flex-start"}}>
-                            <RelatedPopover /> &nbsp; <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
+                            <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
                         </Container>
                     </div> 
                 )}

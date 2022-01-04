@@ -10,15 +10,15 @@ const OgTracker = () => {
     const [count, setCount] = useState(0)
     const [work, setWork] = useState([])
 
-    useEffect(()=> {
-        getWork()
+    useEffect((request)=> {
+        getWork(request);
     },[])
 
     const handleSubmit = async (e) => {
         e.PreventDefault();
         const jwt = localStorage.getItem('token')
         let response = await axios.post('http://localhost:8000/library/og_tracker', readWork, {headers: {Authorization: 'Bearer ' + jwt }})
-        setReadWork(response.json)
+        setReadWork(response.data)
     } // on submit posting to og_tracker database
 
     const removeReadWork = async (workId) => {
@@ -30,9 +30,18 @@ const OgTracker = () => {
     const getWork = async () => {
         const jwt =localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/og_tracker', {header: {Authorization: 'Bearer ' + jwt }})
-        setWork(response.json)
+        setWork(response.data)
         setWordCount(work.word_count)
         
+    }
+
+    const handleClick = async (e, element) => {
+        e.preventDefault();
+        const jwt = localStorage.getItem('token');
+        await axios.delete(`http://localhost:8000/library/book_tracker/`, setWork, {headers: {Authorization: 'Bearer' + jwt }});
+        // updateWork(current => !current);
+        setCount(count-1);
+        setWordCount(count-element.word_count)
     }
 
     return (

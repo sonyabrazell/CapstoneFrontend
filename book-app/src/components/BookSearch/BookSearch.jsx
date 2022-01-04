@@ -11,26 +11,57 @@ const BookSearch = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const getBooks = async () => {
-            const searchResults = await axios.get(`${API_URL}?q=${input}`);
-            console.log(searchResults.json)
-            setSearchResults(searchResults.json) 
-            .then((data) => data = [
-                    {
-                        book_title: '',
-                        book_author: '',
-                        book_isbn: '',
-                        book_cover: '',
-                    }
-                ]
-            )};
         getBooks(input);
         console.log(input)
-        };
+    };
+
+    const getBooks = async () => {
+        const searchResults = await axios.get(`${API_URL}?q=${input}`);
+        console.log(searchResults.json)
+        setSearchResults(searchResults.json) 
+        .then((res) => res.json())
+        .then((data) => {
+            data.items.forEach(book => {
+            displaySearchResults(book);
+            });
+        });
     
     const searchTermHandler = (e) => {
         e.preventDefault();
         setInput(e.target.value)
+    }
+
+    const displaySearchResults = () => {
+        return (
+            <Container>
+                {searchResults.data.items.map((element, index)=>
+            <div className="card mb-3" style={{width: '500px'}} key={index} >
+                <div className="row no-gutters">
+                    <div className="col-md-4">
+                        <img
+                        className="bd-placeholder-img"
+                        width="100%"
+                        height="250"
+                        src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                        alt={`${element.book_title}`}
+                        aria-label="Book Cover"
+                        preserveAspectRatio='xMidyMid slice'>
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#f2acb9"/>
+                        </img>
+                    </div>
+                        <div className="col-md-8">
+                            <div className="card-body">
+                                <h5 className ="card-title">Title: {element.book_title}</h5>
+                                <h2>Author: {element.book_author}</h2>
+                            </div>
+                        </div>
+                </div>
+                    <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
+            </div>
+            )}
+        </Container>
+        )
     }
     
     const handleClick = async (e, elementId) => {
@@ -67,35 +98,8 @@ const BookSearch = () => {
                 </div>
             </div>
             </Container>
-            <Container>
-                {searchResults.data.items.map((element, index)=>
-            <div className="card mb-3" style={{width: '500px'}} key={index} >
-                <div className="row no-gutters">
-                    <div className="col-md-4">
-                        <img
-                        className="bd-placeholder-img"
-                        width="100%"
-                        height="250"
-                        src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                        alt={`${element.book_title}`}
-                        aria-label="Book Cover"
-                        preserveAspectRatio='xMidyMid slice'>
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#f2acb9"/>
-                        </img>
-                    </div>
-                        <div className="col-md-8">
-                            <div className="card-body">
-                                <h5 className ="card-title">Title: {element.book_title}</h5>
-                                <h2>Author: {element.book_author}</h2>
-                            </div>
-                        </div>
-                </div>
-                    <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
-            </div>
-            )}
-        </Container>
+            
         </React.Fragment>
     )
-}
+}}
 export default BookSearch;

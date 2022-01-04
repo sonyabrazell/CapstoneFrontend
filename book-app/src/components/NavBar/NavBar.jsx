@@ -40,7 +40,7 @@ const Navigation = ({user}) => {
                                 <NavDropdown.Item eventKey="4.2" href="/library/og_tracker/">Original Works</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Item>
-                                <Nav.Link eventKey="5" href="/book_search">Search</Nav.Link>
+                                <Nav.Link eventKey="5" href="library/book_search">Search</Nav.Link>
                             </Nav.Item>
                             {/* <Nav.Item>
                                     <Nav.Link eventKey="7" title="Wishlist" href="wishlist/">Wishlist</Nav.Link>

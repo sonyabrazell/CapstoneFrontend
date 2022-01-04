@@ -19,6 +19,22 @@ const SeriesView = () => {
         setBooks(response.json)
     }
 
+    const popover = (
+        <Popover id="popover-basic">
+        <Popover.Header as="h3">Series View</Popover.Header>
+        <Popover.Body>
+            Click here to look at books in a series.
+        </Popover.Body>
+        </Popover>
+    );
+
+    const SeriesPopover = () => (
+        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+            <Button variant="success">Click me to series</Button>
+        </OverlayTrigger>
+    );
+    
+
     return ( 
         <React.Fragment>
             <div style={{paddingTop: "10%"}} />
@@ -51,7 +67,7 @@ const SeriesView = () => {
                             </tbody>
                     </Table>
                     <Container style={{paddingTop: '10px'}}>
-                        <AddOgWork onSubmit={handleSubmit} onClick={()=> setCount(count+{wordCount})}/>
+                        <SeriesPopover onSubmit={handleSubmit()} onClick={()=> setCount(count()+{wordCount()})}/>
                     </Container>
         </React.Fragment>
     );

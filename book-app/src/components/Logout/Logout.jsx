@@ -12,7 +12,7 @@ const Logout = () => {
         <div align="center">
             <h2>Are you sure you want to logout?</h2>
             &nbsp;
-            <Button variant="danger" type="submit" onClick={()=> deleteToken()}>Logout</Button>
+            <Button variant="danger" type="submit" onClick={(e)=> deleteToken(e)}>Logout</Button>
         </div>
     )
 }
