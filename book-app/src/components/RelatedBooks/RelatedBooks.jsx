@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Alert } from "react-bootstrap";
 
-
-
-const RelatedBooks = (books) => {
+const RelatedBooks = () => {
 
     const [relatedBooks, setRelatedBooks] = useState([]);
 
-    const getBooks = async (book_genre) => {
+    const getRelatedBooks = async (book_genre) => {
+        let API_URL = `https://www.googleapis.com/books/v1/volumes`;
         let response = await axios.get(`${API_URL}?q=${book_genre}`)
             setRelatedBooks(response.data.items)
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        setInput();
-
-        function setInput() {
-            let book_genre = document.getElementById(books.book_genre);
-            getBooks(book_genre);
-        }
-}
+    }
 
     const handleClick = async (e, elementId) => {
         e.preventDefault();
@@ -33,26 +23,21 @@ const RelatedBooks = (books) => {
                 Book added to library, thank you!
             </Alert>
         }} //adds search result book to library
+
+    const relatedBooks = [
+        {
+            book_title: '',
+            book_author: '',
+            book_isbn: '',
+            book_cover: '',
+        }
+    ]
     
 
     return ( 
         <Container fluid>
-            <div className="search-bar ui segment" >
-                <div className="field">
-                    <form className="d-flex" className="product-style" onSubmit={(e) => handleSubmit(e)}>
-                            <input
-                                id="searchFor"
-                                type="search"
-                                placeholder="Search"
-                                className="me-2"
-                                aria-label="Search"
-                            />
-                        <button type="submit" variant="danger">Search</button>
-                    </form>
-                </div>
-            </div>
-                {relatedBooks.map((element)=>
-            <div className="card mb-3" style={{width: '500px'}}>
+                {relatedBooks.map((element, index)=>
+            <div className="card mb-3" style={{width: '500px'} key={index}}>
                 <div className="row no-gutters">
                     <div className="col-md-4">
                         <svg
@@ -80,6 +65,7 @@ const RelatedBooks = (books) => {
         )}
         </Container>
     )
-}
+}}
 
 export default RelatedBooks;
+

@@ -53,14 +53,30 @@ const OgTracker = () => {
                                 <th>Word Count</th>
                                 <th>Date Read</th>
                                 <th>Link</th>
+                                <th>Remove?</th>
                             </tr>
                         </thead>
                             <tbody>
                                 {work.map((element, index) => 
                                     <tr key={index}>
                                         <td>
+                                            {element.work_title}
                                         </td>
+                                        <td>
+                                            {element.work_author}
+                                        </td>
+                                        <td>
+                                            {element.word_count}
+                                        </td>
+                                        <td>
+                                            {element.work_date_read}
+                                        </td>
+                                        <td>
+                                            {element.work_link}
+                                        </td>
+                                        <td>
                                         <Button onClick={removeReadWork(element.id)} color = "danger">Delete Read Work</Button>
+                                        </td>
                                     </tr>
                                         )}
                             </tbody>

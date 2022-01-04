@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ProgressBar, Container, Button } from "react-bootstrap";
-import BookSearch from "../BookSearch/BookSearch";
 
+const BookTracker = () => {
 
-const BookTracker = (books) => {
-
+    const [books, setBooks] = useState([]);
     const [readBooks, setReadBooks] = useState([]);
     const [count, setCount] = useState(0);
     const [updatedBook, setUpdatedBook] = useState(true);
 
     useEffect(() => {
-        const displayReadBooks = (books) => {
-            if ( books.read_status === true )
-            {
-                setReadBooks()
-            }
-                displayLength(readBooks);
-            }
-            displayReadBooks();
-    }, [])
+        getBooks();
+        setReadBooks(books.filter((book) => book.read_status === true));
+        console.log(readBooks)
+        displayLength(readBooks);
+        }, [books, readBooks])
     
     const displayLength = (readBooks) => {
         let length = readBooks.length;
         console.log(length);
         return setCount(length);
+    }
+
+    const getBooks = async () => {
+        const jwt = localStorage.getItem('token')
+        let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
+        setBooks(response.data.items)
     }
     
     const updateBook = async () => {
@@ -33,15 +34,17 @@ const BookTracker = (books) => {
         setUpdatedBook(response.data)
     } // takes removed book and updates read status to false
     
-    async function removeReadBook() {
+    const handleClick = async (e, elementId) => {
+        e.preventDefault();
         const jwt = localStorage.getItem('token');
-        await axios.delete(`http://localhost:8000/library/book_tracker/`, { headers: { Authorization: 'Bearer ' + jwt } });
+        await axios.delete(`http://localhost:8000/library/book_tracker/`, elementId, { headers: { Authorization: 'Bearer ' + jwt } });
         updateBook(current => !current);
         setCount(count - 1);
     }
     
     return (
         <React.Fragment>
+            {console.log(readBooks)}
             <h1 align="center" style={{paddingTop:'100px'}}>Book Tracker</h1>
                 <Container align="left" style={{paddingTop: "20px"}}>
                     <ProgressBar striped variant="danger" now={count} label={`${count}`} />
@@ -63,7 +66,7 @@ const BookTracker = (books) => {
                                 <Container align="right">
                                 <Button 
                                     align="right"
-                                    onClick={()=> removeReadBook({element})} 
+                                    onClick={(e) => handleClick(e, element.id)} 
                                     variant= "danger">
                                     Delete</Button>
                                 </Container>

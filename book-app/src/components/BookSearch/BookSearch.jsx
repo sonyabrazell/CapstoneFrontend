@@ -4,7 +4,6 @@ import { Container, Button, Alert } from 'react-bootstrap'
 
 const BookSearch = () => { 
 
-    const [book, setBook] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [input, setInput] = useState('');
 
@@ -15,8 +14,16 @@ const BookSearch = () => {
         const getBooks = async () => {
             const searchResults = await axios.get(`${API_URL}?q=${input}`);
             console.log(searchResults.data.items)
-            setSearchResults(searchResults);
-        };
+            setSearchResults(searchResults.data.items) 
+            .then((data) => data = [
+                    {
+                        book_title: '',
+                        book_author: '',
+                        book_isbn: '',
+                        book_cover: '',
+                    }
+                ]
+            )};
         getBooks(input);
         console.log(input)
         };
@@ -54,14 +61,14 @@ const BookSearch = () => {
                                 className="me-2"
                                 aria-label="Search"
                                 value={input}
-                                onChange={searchTermHandler}/>
+                                onChange={searchTermHandler()}/>
                         <button type="submit" variant="danger">Search</button>
                     </form>
                 </div>
             </div>
             </Container>
             <Container>
-                {searchResults.data.items.map((element, index)=>
+                {searchResults.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'}} key={index} >
                 <div className="row no-gutters">
                     <div className="col-md-4">
@@ -70,7 +77,7 @@ const BookSearch = () => {
                         width="100%"
                         height="250"
                         src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                        alt={`${element.volumeId.title}`}
+                        alt={`${element.book_title}`}
                         aria-label="Book Cover"
                         preserveAspectRatio='xMidyMid slice'>
                             <title>Placeholder</title>
@@ -79,12 +86,12 @@ const BookSearch = () => {
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className ="card-title">Title: {element.volumeId.title}</h5>
-                                <h2>Author: {element.volumeId.authors}</h2>
+                                <h5 className ="card-title">Title: {element.book_title}</h5>
+                                <h2>Author: {element.book_author}</h2>
                             </div>
                         </div>
                 </div>
-                    <Button variant="danger" onClick={(e) => handleClick(e, element.volumeId.id)}>Add to Library</Button>
+                    <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
             </div>
             )}
         </Container>
