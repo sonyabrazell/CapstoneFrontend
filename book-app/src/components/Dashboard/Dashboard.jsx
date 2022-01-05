@@ -18,8 +18,8 @@ const Dashboard = () => {
 return (
     <React.Fragment>
         <div style={{paddingTop:'20%'}}/>
+            <h4>Hello, reader.</h4>
             <Container flex style={{flexWrap:'wrap', alignContent:'space-around'}}>
-                <DataVisualization />
             </Container>
     </React.Fragment>
 )}

@@ -43,7 +43,7 @@ const RelatedPopover = (books) => {
             <OverlayTrigger
             trigger="click"
             overlay={
-            <UpdatingPopover id="popover-contained">{RelatedBooks}</UpdatingPopover>
+            <UpdatingPopover id="popover-contained"></UpdatingPopover>
             }
         >
         <Button variant="danger">Get Related Books</Button>

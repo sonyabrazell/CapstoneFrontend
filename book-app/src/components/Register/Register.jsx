@@ -33,6 +33,7 @@ const RegisterUser = () => {
             return (window.location = "/login")
         }
     }
+
     return ( 
         <div align ="center">
             <Container style ={{flex: 1, width: "50%", padding: "10px", paddingTop:'10%'}}>

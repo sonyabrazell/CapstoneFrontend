@@ -6,42 +6,35 @@ import AddOgWork from "../AddOgWork/AddOgWork";
 const OgTracker = () => {
 
     const [wordCount, setWordCount] = useState(0)
-    const [readWork, setReadWork] = useState([])
     const [count, setCount] = useState(0)
     const [work, setWork] = useState([])
 
-    useEffect((request)=> {
-        getWork(request);
+    useEffect(()=> {
+        getWork();
     },[])
 
     const handleSubmit = async (e) => {
         e.PreventDefault();
         const jwt = localStorage.getItem('token')
-        let response = await axios.post('http://localhost:8000/library/og_tracker', readWork, {headers: {Authorization: 'Bearer ' + jwt }})
-        setReadWork(response.data)
+        let response = await axios.post('http://localhost:8000/library/og_tracker/', {headers: {Authorization: 'Bearer ' + jwt }}) 
+        console.log(response.data)
+        setWork(response.data)
     } // on submit posting to og_tracker database
 
     const removeReadWork = async (workId) => {
         const jwt = localStorage.getItem('token')
-        await axios.delete(`http://localhost:8000/library/og_tracker/`, workId, {headers: {Authorization: 'Bearer ' + jwt }})
+        let response = await axios.delete(`http://localhost:8000/library/og_tracker/`, workId, {headers: {Authorization: 'Bearer ' + jwt }})
+        setWork(response.data)
         setCount(count - 1)
     }
 
     const getWork = async () => {
         const jwt =localStorage.getItem('token')
-        let response = await axios.get('http://localhost:8000/library/og_tracker', {header: {Authorization: 'Bearer ' + jwt }})
+        let response = await axios.get('http://localhost:8000/library/og_tracker/', {header: {Authorization: 'Bearer ' + jwt }})
+        console.log(response.data)
         setWork(response.data)
         setWordCount(work.word_count)
         
-    }
-
-    const handleClick = async (e, element) => {
-        e.preventDefault();
-        const jwt = localStorage.getItem('token');
-        await axios.delete(`http://localhost:8000/library/book_tracker/`, setWork, {headers: {Authorization: 'Bearer' + jwt }});
-        // updateWork(current => !current);
-        setCount(count-1);
-        setWordCount(count-element.word_count)
     }
 
     return (
