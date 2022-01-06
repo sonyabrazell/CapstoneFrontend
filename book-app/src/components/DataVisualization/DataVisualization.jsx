@@ -3,24 +3,53 @@
 // works read by month
 // year to date books read
 // year to date words read
-import React from 'react';
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useState } from 'react';
+import { Chart, registerables } from 'chart.js';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { Container } from 'react-bootstrap';
+import { readBooks } from '../BookTracker/BookTracker.jsx';
+import { workCount, wordCount} from '../OgTracker/OgTracker.jsx';
+import axios from 'axios';
 
 
-const DataVisualization = () => {
 
-    ChartJS.register(
-        ArcElement,
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Title,
-        Tooltip,
-        Legend
-    );
+const DataVisualization = (props) => {
+    let initialMonthData ={
+        datasets:[{
+            label: "Blank Item",
+            data: [],
+            borderColor: 'rgb(255,255,255)',
+            backgroundColor: 'rgba(0,0,0,1.0)'
+        }]
+    }
+    const [readyByMonthData, setReadyByMonthData]= useState(initialMonthData);
+
+    Chart.register(registerables);
+
+    const [byMonth, setByMonth] = useState({});
+    const [booksByMonth, setBooksByMonth] = useState([]);
+    const [worksByMonth, setWorksByMonth] = useState([]);
+    const [wordsByMonth, setWordsByMonth] = useState([])
+    const wordsByMonthOptions = "some options"
+
+    // const readByMonth = () => {
+    //     let empBook = [];
+    //     let empWork = [];
+    //     // console.log(bookCount)
+    //     for(const dataObj of bookCount){
+    //         empBook.push(parseInt())
+    //     }
+        
+    //     setByMonth({
+    //         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    //         datasets: [
+    //             {
+    //                 label: 'ReadBooks',
+    //                 data: ''
+    //             }
+    //         ]
+    //     })
+    // }
 
     const readByMonthOptions = {
         responsive: true,
@@ -41,20 +70,19 @@ const DataVisualization = () => {
         },},
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
     const readByMonthData = {
-        labels,
+        labels: [],
         datasets: [
             {
             label: 'Read Books',
-            data: labels.map(() => readBooks.datatype.number({ min: 0, max: 500 })),
+            data: [],
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
             label: 'Read Works',
-            data: labels.map(() => readWork.datatype.number({ min: 0, max: 500 })),
+            data: [],
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 },

@@ -5,33 +5,33 @@ import { ProgressBar, Container, Button } from "react-bootstrap";
 const BookTracker = () => {
 
     const [books, setBooks] = useState([]);
-    const [readBooks, setReadBooks] = useState([]);
-    const [count, setCount] = useState(0);
+    const [bookCount, setBookCount] = useState(0);
     const [updatedBook, setUpdatedBook] = useState(true);
+    const [loadData, setLoadData] = useState(false)
 
     useEffect(() => {
         getBooks();
-        setReadBooks(books.filter((book) => book.read_status === true));
-        console.log(readBooks)
-        displayLength(readBooks);
-        }, [books, readBooks])
+    }, [loadData])
     
-    const displayLength = (readBooks) => {
-        let length = readBooks.length;
-        console.log(length);
-        return setCount(length);
-    }
-
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
-        let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
-        setBooks(response.data)
+        let response = await axios.get('http://localhost:8000/library/book_tracker/', { headers: { Authorization: 'Bearer ' + jwt } })
+        setBooks(response.data);
+        displayLength(response.data);
+    }
+
+    const displayLength = (booksArray) => {
+        let length = booksArray.length;
+        console.log("Length of readbooks: ", length);
+        return setBookCount(length);
     }
     
     const updateBook = async () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.post(`http://localhost:8000/library/library/`, updatedBook, {headers: {Authorization: 'Bearer: ' + jwt}})
         setUpdatedBook(response.data)
+        // request reload of data
+        setLoadData(!loadData)
     } // takes removed book and updates read status to false
     
     const handleClick = async (e, elementId) => {
@@ -39,19 +39,19 @@ const BookTracker = () => {
         const jwt = localStorage.getItem('token');
         await axios.delete(`http://localhost:8000/library/book_tracker/`, elementId, { headers: { Authorization: 'Bearer ' + jwt } });
         updateBook(current => !current);
-        setCount(count - 1);
+        setBookCount(bookCount - 1);
     }
     
     return (
         <React.Fragment>
-            {console.log(readBooks)}
+            {console.log("Books rtv: ",books)}
             <h1 align="center" style={{paddingTop:'100px'}}>Book Tracker</h1>
                 <Container align="left" style={{paddingTop: "20px"}}>
-                    <ProgressBar striped variant="danger" now={count} label={`${count}`} />
-                    <h5>YOU HAVE READ {count} BOOKS</h5>
+                    <ProgressBar striped variant="danger" now={bookCount} label={`${bookCount}`} />
+                    <h5>YOU HAVE READ {bookCount} BOOKS</h5>
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', paddingTop: '20px'}}>
-                {readBooks.map((element, index) => 
+                {books.map((element, index) => 
                     <div key={index} className="card mb-3" style={{width: '500px', height: '300px', padding: '5px'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">

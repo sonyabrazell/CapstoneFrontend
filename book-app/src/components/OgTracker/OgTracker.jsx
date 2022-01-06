@@ -6,7 +6,7 @@ import AddOgWork from "../AddOgWork/AddOgWork";
 const OgTracker = () => {
 
     const [wordCount, setWordCount] = useState(0)
-    const [count, setCount] = useState(0)
+    const [workCount, setWorkCount] = useState(0)
     const [work, setWork] = useState([])
 
     useEffect(()=> {
@@ -25,7 +25,7 @@ const OgTracker = () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.delete(`http://localhost:8000/library/og_tracker/`, workId, {headers: {Authorization: 'Bearer ' + jwt }})
         setWork(response.data)
-        setCount(count - 1)
+        setWorkCount(workCount - 1)
     }
 
     const getWork = async () => {
@@ -42,8 +42,8 @@ const OgTracker = () => {
             <div style={{paddingTop: "10%"}} />
             <h1 align="center">Og Work Tracker</h1>
                 <Container align="left" style={{paddingTop: "20px"}}>
-                    <ProgressBar striped variant="danger" now={count} label={`${count}`} />
-                        <h5>YOU HAVE READ {count} ORIGINAL WORKS</h5>
+                    <ProgressBar striped variant="danger" now={workCount} label={`${workCount}`} />
+                        <h5>YOU HAVE READ {workCount} ORIGINAL WORKS</h5>
                     <ProgressBar variant="danger" now={wordCount} label={`${wordCount}`}/>
                         <h5>YOU HAVE READ {wordCount} WORDS</h5>
                 </Container>
@@ -84,7 +84,7 @@ const OgTracker = () => {
                             </tbody>
                     </Table>
                     <Container style={{paddingTop: '10px'}}>
-                        <AddOgWork onSubmit={handleSubmit} onClick={()=> setCount(count+{wordCount})}/>
+                        <AddOgWork onSubmit={handleSubmit} onClick={()=> setWorkCount(workCount+{wordCount})}/>
                     </Container>
         </React.Fragment>
     );
