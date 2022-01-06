@@ -3,15 +3,17 @@ import axios from "axios";
 import { Table, Container, ProgressBar, Button } from "react-bootstrap";
 import AddOgWork from "../AddOgWork/AddOgWork";
 
+
 const OgTracker = () => {
 
     const [wordCount, setWordCount] = useState(0)
     const [workCount, setWorkCount] = useState(0)
     const [work, setWork] = useState([])
+    const [loadData, setLoadData] = useState(false)
 
     useEffect(()=> {
         getWork();
-    },[])
+    },[loadData])
 
     const handleSubmit = async (e) => {
         e.PreventDefault();
@@ -19,23 +21,29 @@ const OgTracker = () => {
         let response = await axios.post('http://localhost:8000/library/og_tracker/', {headers: {Authorization: 'Bearer ' + jwt }}) 
         console.log(response.data)
         setWork(response.data)
+        setWorkCount(work.length)
     } // on submit posting to og_tracker database
-
-    const removeReadWork = async (workId) => {
-        const jwt = localStorage.getItem('token')
-        let response = await axios.delete(`http://localhost:8000/library/og_tracker/`, workId, {headers: {Authorization: 'Bearer ' + jwt }})
-        setWork(response.data)
-        setWorkCount(workCount - 1)
-    }
 
     const getWork = async () => {
         const jwt =localStorage.getItem('token')
-        let response = await axios.get('http://localhost:8000/library/og_tracker/', {header: {Authorization: 'Bearer ' + jwt }})
-        console.log(response.data)
+        let response = await axios.get('http://localhost:8000/library/og_tracker/', {headers: {Authorization: 'Bearer ' + jwt }})
+        console.log("Work: ", response.data)
         setWork(response.data)
-        setWordCount(work.word_count)
-        
+        setWorkCount(work.length)
+        displayLength(response.data)
+        getWordCount(work)
     }
+
+    const displayLength = (workArray) => {
+        let length = workArray.length;
+        console.log("length of read work: ", length)
+        return setWorkCount(length)
+    }
+
+    const getWordCount = (() => {
+        const total = work.map(item => item.word_count).reduce((prev,next) => prev + next);
+        return setWordCount(total)
+        })
 
     return (
         <React.Fragment>
@@ -47,15 +55,15 @@ const OgTracker = () => {
                     <ProgressBar variant="danger" now={wordCount} label={`${wordCount}`}/>
                         <h5>YOU HAVE READ {wordCount} WORDS</h5>
                 </Container>
-                    <Table align="center">
-                        <thead>
+                <br></br>
+                    <Table style = {{paddingTop: '10px'}} align="center" striped bordered responsive>
+                        <thead style={{backgroundColor: '#f2acb9'}} align="center">
                             <tr>
                                 <th>Title</th>
                                 <th>Author</th>
                                 <th>Word Count</th>
                                 <th>Date Read</th>
-                                <th>Link</th>
-                                <th>Remove?</th>
+                                <th>Source</th>
                             </tr>
                         </thead>
                             <tbody>
@@ -74,17 +82,14 @@ const OgTracker = () => {
                                             {element.work_date_read}
                                         </td>
                                         <td>
-                                            {element.work_link}
-                                        </td>
-                                        <td>
-                                        <Button onClick={removeReadWork(element.id)} color = "danger">Delete Read Work</Button>
+                                            <a href={`${element.work_link}`}>Source</a>
                                         </td>
                                     </tr>
                                         )}
                             </tbody>
                     </Table>
                     <Container style={{paddingTop: '10px'}}>
-                        <AddOgWork onSubmit={handleSubmit} onClick={()=> setWorkCount(workCount+{wordCount})}/>
+                        <AddOgWork onSubmit={handleSubmit}/>
                     </Container>
         </React.Fragment>
     );

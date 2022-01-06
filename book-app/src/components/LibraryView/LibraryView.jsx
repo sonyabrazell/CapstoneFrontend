@@ -21,12 +21,6 @@ const LibraryView = () => {
         setBooks(response.data)
     }
 
-    const removeBook = async (bookId) => {
-        const jwt = localStorage.getItem('token')
-        axios.delete(`http://localhost:8000/library/books`, bookId, { headers: { Authorization: 'Bearer ' + jwt } })
-        getBooks()
-    }
-
     const updateBook = async (bookId) => {
         const jwt = localStorage.getItem('token')
         let response = await axios.post(`http://localhost:8000/library/library/`, bookId, {read: true}, {headers: {Authorization: 'Bearer: ' + jwt}})
@@ -42,7 +36,7 @@ const LibraryView = () => {
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                 {books.map((element, index) =>
-                    <div key={index} className="card mb-3" align="right" style={{ width: '500px', height: '400px',padding: '5px'}}>
+                    <div key={index} className="card mb-3" align="right" style={{ width: '500px', height: '350px',padding: '5px'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
                                 <img src={`${element.book_cover}`} alt={`${element.book_title}`} style={{width: '200px', paddingTop:'10px', paddingLeft:'10px'}}/>
@@ -76,11 +70,9 @@ const LibraryView = () => {
                                     </div>
                                 </div>
                             </div>
-                        <br></br>
                         <Container style={{justifyContent: "flex-start"}}>
-                            <Button variant="danger" onClick={(e) => removeBook(e, element.id)}>Delete</Button> &nbsp; 
                             {element.read_status === false ? (
-                            <Button variant="danger" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
+                            <Button variant="danger" size= "sm" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
                             ): ''}
                         </Container>
                     </div> 
