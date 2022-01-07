@@ -4,7 +4,9 @@ import { useEffect, useState,  } from "react";
 import { Popover, OverlayTrigger, Button,  } from "react-bootstrap";
 
 
-const RelatedPopover = (books) => {
+const RelatedPopover = () => {
+
+
 
     const UpdatingPopover = React.forwardRef(
         ({ popper, children, show: _, ...props }, ref) => {
@@ -46,16 +48,16 @@ const RelatedPopover = (books) => {
             <UpdatingPopover id="popover-contained"></UpdatingPopover>
             }
         >
-        <Button variant="danger">Get Related Books</Button>
+        <Button variant="danger" size="sm">Get Related Books</Button>
         </OverlayTrigger>
         );
     }
     
 return (
     <React.Fragment>
-        <RelatedPop />;
-        <RelatedBooks books={books}/>;
-    </React.Fragment>);
+        <RelatedPop />
+        <RelatedBooks />
+    </React.Fragment>)
 
 }
 

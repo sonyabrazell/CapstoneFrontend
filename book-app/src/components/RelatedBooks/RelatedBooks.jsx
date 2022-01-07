@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Container, Alert } from "react-bootstrap";
 
-const RelatedBooks = () => {
+const RelatedBooks = (props) => {
 
     const [relatedBooks, setRelatedBooks] = useState([]);
+    const [loadData, setloadData] = useState(false)
 
-    const book_genre = document.getElementById('book_genre').value
+    let book_genre = props.book_genre
+    console.log(book_genre)
 
     useEffect(() => {
-        getRelatedBooks(book_genre)
-    },[book_genre])
+        getRelatedBooks()
+    },[loadData])
 
     const getRelatedBooks = async (book_genre) => {
         let API_URL = `https://www.googleapis.com/books/v1/volumes`;
-        let response = await axios.get(`${API_URL}?q=${book_genre}`)
-            console.log(response.json)
-            .then((res) => res.json())
+        let response = await axios.get(`${API_URL}?q=${book_genre}&maxResults=5`)
+            console.log(response.data)
             .then((data) => {
             data.items.forEach(book => {
             setRelatedBooks(book);
@@ -29,6 +30,7 @@ const RelatedBooks = () => {
         const jwt = localStorage.getItem('token')
         let response = await axios.post('http://localhost:8000/library/books/', elementId, {headers: {Authorization: 'Bearer ' + jwt}})
         console.log(response.data);
+        setloadData(!loadData)
         if (response.request.status === 201)
         {
             <Alert variant="secondary">
@@ -37,8 +39,9 @@ const RelatedBooks = () => {
         }} //adds search result book to library
     
     return ( 
+        <React.Fragment>
         <Container fluid>
-                {relatedBooks.data.items.map((element, index)=>
+                {relatedBooks.map((element, index)=>
             <div className="card mb-3" style={{width: '500px'}} key={index}>
                 <div className="row no-gutters">
                     <div className="col-md-4">
@@ -66,8 +69,9 @@ const RelatedBooks = () => {
                     <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
                 </div>
             </div>
-        )};
+        )}
         </Container>
+        </React.Fragment>
     )
 }
 

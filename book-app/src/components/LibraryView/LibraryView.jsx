@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Container, Button, Badge } from "react-bootstrap";
 import './LibraryView.css'
+import RelatedPopover from "../RelatedPopover/RelatedPopover";
 import SeriesView from "../SeriesView/SeriesView";
+import RelatedBooks from "../RelatedBooks/RelatedBooks";
+import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
+import OffCanvasRelated from "../RelatedOffcanvas/RelatedOffcanvas.jsx"
 
 const LibraryView = () => {
 
@@ -55,7 +59,7 @@ const LibraryView = () => {
                                         ) : ''}
                                             {element.first_edition === true ? (
                                             <Badge pill bg="dark">First Edition</Badge> 
-                                        ) : ''} 
+                                        ) : ''}
                                             {element.signed === true ? (
                                             <Badge pill bg="dark">Signed</Badge>
                                         ) : ''}
@@ -66,14 +70,23 @@ const LibraryView = () => {
                                             <Badge pill bg="dark">Read</Badge>
                                         ): ''} 
                                     {/* <p align="right">{element.first_sentence}</p> */}
+                                        </div>
+                                        <div>
+                                            <br></br>
+                                        <RelatedBooks book_genre={element.book_genre}/>
+                                        <OffCanvasRelated />
+                                        <div style={{padding: '5px'}}></div>
+                                        {element.read_status === false ? (
+                                        <Button variant="danger" size= "sm" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
+                                        ): ''}
+                                        
                                         </div>    
                                     </div>
                                 </div>
                             </div>
                         <Container style={{justifyContent: "flex-start"}}>
-                            {element.read_status === false ? (
-                            <Button variant="danger" size= "sm" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>
-                            ): ''}
+                
+                            
                         </Container>
                     </div> 
                 )}
