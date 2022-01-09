@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { Popover, Table, Overlay, OverlayTrigger, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 
 const SeriesView = () => {
@@ -11,9 +11,18 @@ const SeriesView = () => {
 
     useEffect(() => {
         getBooks();
-        setSeries(books.filter((book) => book.series === true));
+        getSeries(books);
         console.log(series)
         }, [books])
+
+    const getSeries = () => {
+        books.forEach.filter((book) => {
+            if (book.series_name === book.series_name)
+            return (
+                setSeries(book)
+            )
+        });
+    }
 
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
@@ -21,52 +30,30 @@ const SeriesView = () => {
         setBooks(response.json)
     }
 
-    const popover = (
-        <Popover id="popover-basic">
-        <Popover.Header as="h3">Series View</Popover.Header>
-        <Popover.Body>
-            
-        </Popover.Body>
-        </Popover>
-    );
-
-    const SeriesPopover = () => (
-        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-            <Button variant="success">Click me to series</Button>
-        </OverlayTrigger>
-    );
-    
-
     return ( 
-        <React.Fragment>
-        <SeriesPopover >
-            <div style={{paddingTop: "10%"}} />
-            <h1 align="center">Book Series</h1>
-                    <Table align="center">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Series Name</th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                                {series.map((element, index) => 
-                                    <tr key={index}>
-                                        <td>
-                                            {element.book_title}
-                                        </td>
-                                        <td>
-                                            {element.book_author}
-                                        </td>
-                                        <td>
-                                            {element.series_name}
-                                        </td>
-                                    </tr>
-                                        )}
-                            </tbody>
-                    </Table>
-                </SeriesPopover>
+            <React.Fragment>
+            {console.log("Books rtv: ", books)}
+            <h3 align="center" style={{paddingTop:'100px'}}>Book Series</h3>
+            <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', paddingTop: '20px'}}>
+                <h4>{books.series_name}</h4>
+                {series.map((element, index) => 
+                    <div key={index} className="card mb-3" style={{width: '400px', height: 'auto', padding: '5px'}}>
+                        <div className="row no-gutters">
+                            <div className="col-md-4">
+                                <img src={element.book_cover} alt={'book-app/src/static/background.png'} style={{width: "150px", paddingTop: '10px', paddingLeft: '10px'}}/>
+                            </div>
+                        <div className="col-md-8">
+                            <div className="card-body" style={{justifyContent: 'flex-end', alignItems: "end"}}>
+                                <h5 align="right" className="card-title">{element.book_title}</h5>
+                                <h5 align="right">{element.book_author}</h5>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                )}</Container>
+                
         </React.Fragment>
     );
 }

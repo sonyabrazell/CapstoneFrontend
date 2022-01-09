@@ -25,7 +25,7 @@ const AddBook = ({user}) => {
     const [specialEdition, setSpecialEdition] = useState(false);
     const [firstEdition, setFirstEdition] = useState(false);
     const [signed, setSigned] = useState(false);
-    const [googleId, setGoogleId] = useState('');
+    // const [googleId, setGoogleId] = useState('');
     // const [sentence, setSentence] = useState('');
 
     const newBook = {
@@ -52,14 +52,13 @@ const AddBook = ({user}) => {
 
     let API_URL = `https://www.googleapis.com/books/v1/volumes`;
 
-    const getGoogleId = async (isbn) => {
-        let response = await axios.get(`${API_URL}?q=isbn:${isbn}`);
-        setGoogleId(response.data.items.id)
-    }
+    // const getGoogleId = async (isbn) => {
+    //     let response = await axios.get(`${API_URL}?q=isbn:${isbn}`);
+    //     setGoogleId(response.data.items.id)
+    // }
 
     const getCover = async () => {
-        getGoogleId(googleId)
-        let response = await axios.get(`https://books.google.com/books/content?id=${googleId}&printsec=frontcover&img=1&zoom=0&edge=curl&source=gbs_api`)
+        let response = await axios.get(`${API_URL}?callback=show_bookcover&q=isbn:${isbn}`)
         setCover(response.json)
     }
 

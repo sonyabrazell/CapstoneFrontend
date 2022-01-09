@@ -13,8 +13,8 @@ const Logout = () => {
         <div align="center">
             <h2>Are you sure you want to logout?</h2>
             &nbsp;
-            <Button variant="danger" type="submit" onClick={(e)=> deleteToken(e)}>Logout</Button>
-            <button type="danger" onClick={() => window.location = '/'}>Return Home</button>
+            <Button variant="danger" type="submit" onClick={(e)=> deleteToken(e)}>Logout</Button> &nbsp;
+            <Button variant="danger" onClick={() => window.location = '/'}>Return Home</Button>
         </div>
         </Container>
     )

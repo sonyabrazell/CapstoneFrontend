@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Container, Button, Badge } from "react-bootstrap";
 import './LibraryView.css'
-import RelatedPopover from "../RelatedPopover/RelatedPopover";
-import SeriesView from "../SeriesView/SeriesView";
 import RelatedBooks from "../RelatedBooks/RelatedBooks";
-import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
-import OffCanvasRelated from "../RelatedOffcanvas/RelatedOffcanvas.jsx"
+import Series from "../SeriesOffCanvas/SeriesOffCanvas.jsx";
+import Related from "../RelatedOffcanvas/RelatedOffcanvas.jsx";
 
 const LibraryView = () => {
 
@@ -35,12 +33,12 @@ const LibraryView = () => {
         <React.Fragment>
             <div>
                 <div style={{paddingTop:"10%"}}/>
-                <Container style={{paddingTop: '20px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
+                <Container style={{paddingTop: '20px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}} flex>
                     <h1 align="center">Library</h1>
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                 {books.map((element, index) =>
-                    <div key={index} className="card mb-3" align="right" style={{ width: '500px', height: '350px',padding: '5px'}}>
+                    <div key={index} className="card mb-3" align="right" style={{ width: '500px', height: 'auto',padding: '5px'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
                                 <img src={`${element.book_cover}`} alt={`${element.book_title}`} style={{width: '200px', paddingTop:'10px', paddingLeft:'10px'}}/>
@@ -73,8 +71,13 @@ const LibraryView = () => {
                                         </div>
                                         <div>
                                             <br></br>
-                                        <RelatedBooks book_genre={element.book_genre}/>
-                                        <OffCanvasRelated />
+                                        <Related>
+                                        <RelatedBooks book_author={element.book_author}/>
+                                        </Related>
+                                        <div style={{padding: '5px'}}></div>
+                                        {element.book_series === true ? (
+                                        <Series />
+                                        ): ''}
                                         <div style={{padding: '5px'}}></div>
                                         {element.read_status === false ? (
                                         <Button variant="danger" size= "sm" onClick={(e) => updateBook(e, element.value)}>Mark as Read</Button>

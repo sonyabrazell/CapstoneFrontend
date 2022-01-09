@@ -7,23 +7,20 @@ const RelatedBooks = (props) => {
     const [relatedBooks, setRelatedBooks] = useState([]);
     const [loadData, setloadData] = useState(false)
 
-    let book_genre = props.book_genre
-    console.log(book_genre)
+    let book_author = props.book_author
+    console.log(book_author)
 
     useEffect(() => {
         getRelatedBooks()
     },[loadData])
 
-    const getRelatedBooks = async (book_genre) => {
+    const getRelatedBooks = async (book_author) => {
         let API_URL = `https://www.googleapis.com/books/v1/volumes`;
-        let response = await axios.get(`${API_URL}?q=${book_genre}&maxResults=5`)
+        let response = await axios.get(`${API_URL}?q=${book_author}&maxResults=5`)
             console.log(response.data)
-            .then((data) => {
-            data.items.forEach(book => {
-            setRelatedBooks(book);
-            });
-        });
-    }
+            setRelatedBooks(response.data.items);
+            };
+    
 
     const handleClick = async (e, elementId) => {
         e.preventDefault();
@@ -40,33 +37,23 @@ const RelatedBooks = (props) => {
     
     return ( 
         <React.Fragment>
-        <Container fluid>
+        <Container style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                 {relatedBooks.map((element, index)=>
-            <div className="card mb-3" style={{width: '500px'}} key={index}>
+            <div className="card mb-3" style={{width:'300px', height:'auto'}} key={index}>
                 <div className="row no-gutters">
                     <div className="col-md-4">
-                        <svg
-                        className="bd-placeholder-img"
-                        width="100%"
-                        height="250"
-                        xmlns={element.book_cover}
-                        aria-label="Book Cover"
-                        preserveAspectRatio='xMidyMid slice'
-                        role="img">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#f2acb9"/>
-                        </svg>
+                    <img src={`${element.book_cover}`} alt={`${element.book_title}`} style={{width: '150px', paddingTop:'10px', paddingLeft:'10px'}}/>
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className ="card-title">Title: {element.book_title}</h5>
-                                <h2>Author: {element.book_author}</h2>
+                                <p>Author: {element.book_author}</p>
                                 <p>ISBN: {element.book_isbn}</p>
                             </div>
                         </div>
                 </div>
-                <div>
-                    <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
+                <div align='right' style={{padding: '5px'}}>
+                    {/* <Button size='sm' variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button> */}
                 </div>
             </div>
         )}
