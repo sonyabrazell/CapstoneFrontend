@@ -1,41 +1,18 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React from "react";
 import { Container } from "react-bootstrap";
 
 
-const SeriesView = () => {
+const SeriesView = (props) => {
 
-    const [books, setBooks] = useState([]);
-    const [series, setSeries] = useState([]);
-
-
-    useEffect(() => {
-        getBooks();
-        getSeries(books);
-        console.log(series)
-        }, [books])
-
-    const getSeries = () => {
-        books.forEach.filter((book) => {
-            if (book.series_name === book.series_name)
-            return (
-                setSeries(book)
-            )
-        });
-    }
-
-    const getBooks = async () => {
-        const jwt = localStorage.getItem('token')
-        let response = await axios.get('http://localhost:8000/library/library/', { headers: { Authorization: 'Bearer ' + jwt } })
-        setBooks(response.json)
-    }
+    let series = props.series;
+    console.log('SV: ', series)
 
     return ( 
             <React.Fragment>
-            {console.log("Books rtv: ", books)}
+            {console.log("Series: ", series)}
             <h3 align="center" style={{paddingTop:'100px'}}>Book Series</h3>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', paddingTop: '20px'}}>
-                <h4>{books.series_name}</h4>
+                <h4>{series.series_name}</h4>
                 {series.map((element, index) => 
                     <div key={index} className="card mb-3" style={{width: '400px', height: 'auto', padding: '5px'}}>
                         <div className="row no-gutters">
