@@ -27,20 +27,21 @@ const OgTracker = () => {
     const getWork = async () => {
         const jwt =localStorage.getItem('token')
         let response = await axios.get('http://localhost:8000/library/og_tracker/', {headers: {Authorization: 'Bearer ' + jwt }})
-        console.log("Work: ", response.data)
         setWork(response.data)
-        setWorkCount(work.length)
-        displayLength(response.data)
-        getWordCount(work)
+        console.log("Work: ", response.data)
+        setWorkCount(response.data.length);
+        getWordCount(work);
+        console.log("word count: ", wordCount)
+
     }
 
-    const displayLength = (workArray) => {
-        let length = workArray.length;
+    const displayLength = () => {
+        let length = work.length;
         console.log("length of read work: ", length)
         return setWorkCount(length)
     }
 
-    const getWordCount = (() => {
+    const getWordCount = ((work) => {
         const total = work.map(item => item.word_count).reduce((prev,next) => prev + next);
         return setWordCount(total)
         })
@@ -56,8 +57,8 @@ const OgTracker = () => {
                         <h5>YOU HAVE READ {wordCount} WORDS</h5>
                 </Container>
                 <br></br>
-                    <Table style = {{paddingTop: '10px'}} align="center" striped bordered responsive>
-                        <thead style={{backgroundColor: '#f2acb9'}} align="center">
+                    <Table style = {{paddingTop: '10px', borderRadius: '25px'}} align="center" striped bordered responsive>
+                        <thead style={{backgroundColor: '#f2acb9', borderRadius: '25px'}} align="center">
                             <tr>
                                 <th>Title</th>
                                 <th>Author</th>

@@ -16,8 +16,7 @@ function OffCanvasSeries({ name, ...props }) {
         getBooks();
     }
 
-    let seriesName = props.series_name;
-    console.log(seriesName)
+    
 
     const getBooks = async () => {
         const jwt = localStorage.getItem('token')
@@ -28,10 +27,18 @@ function OffCanvasSeries({ name, ...props }) {
     }
 
     const getSeries = () => {
-        books.filter((books) => {
-            let filteredBooks = books.series_name.includes(seriesName)
-            return setSeries(filteredBooks);
+        let seriesName = props.series_name;
+        console.log(seriesName)
+        let filteredBooks = books.filter((books) => {
+            if(books.series_name.includes(seriesName)){
+                return true;
+
+            } else {
+                return false;
+            }
+           
         })
+        setSeries(filteredBooks)
         console.log('Filtered Series: ', series)
     };
     

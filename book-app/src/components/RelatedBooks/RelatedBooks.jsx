@@ -25,10 +25,10 @@ const RelatedBooks = (props) => {
         <React.Fragment>
         <Container style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                 {relatedBooks.map((element, index)=>
-            <div className="card mb-3" style={{width:'400px', height:'auto'}} key={index}>
+            <div className="card mb-3" style={{width:'400px', height:'auto', borderRadius: '25px', padding: '10px', boxShadow: '10px 10px #f23a29'}} key={index}>
                 <div className="row no-gutters">
                     <div className="col-md-4">
-                        <img src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`} alt={`${element.volumeInfo.title}`} style={{width: '150px', paddingTop:'10px', paddingLeft:'10px'}}/>
+                        <img src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`} alt={`${element.volumeInfo.title}`} style={{width: '150px', borderRadius: '25px'}}/>
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">

@@ -38,16 +38,16 @@ const BookTracker = () => {
         <React.Fragment>
             {console.log("Books rtv: ",books)}
             <h1 align="center" style={{paddingTop:'100px'}}>Book Tracker</h1>
-                <Container align="left" style={{paddingTop: "20px"}}>
+                <Container align="left" style={{ paddingTop:'30px'}}>
                     <ProgressBar striped variant="danger" now={bookCount} label={`${bookCount}`} />
                     <h5>YOU HAVE READ {bookCount} BOOKS</h5>
                 </Container>
             <Container style={{display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', paddingTop: '20px'}}>
                 {books.map((element, index) => 
-                    <div key={index} className="card mb-3" style={{width: '500px', height: '250px', padding: '5px'}}>
+                    <div key={index} className="card mb-3" style={{width: '500px', height: '250px', padding: '10px', borderRadius: '25px', boxShadow: '10px 10px #f2acb9'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
-                                <img src={element.book_cover} alt={'book-app/src/static/background.png'} style={{width: "150px", paddingTop: '10px', paddingLeft: '10px'}}/>
+                                <img src={element.book_cover} alt={'book-app/src/static/background.png'} style={{width: "150px", borderRadius: '25px'}}/>
                             </div>
                         <div className="col-md-8">
                             <div className="card-body" style={{justifyContent: 'flex-end', alignItems: "end"}}>

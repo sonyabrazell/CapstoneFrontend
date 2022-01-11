@@ -46,7 +46,7 @@ class App extends Component {
               <Route path = "/login/" element = {<Login />} />,
               <Route path = "/register/" element = {<RegisterUser />} />,
               <Route path = "/logout/" element = {<Logout />} />,
-              <Route path = "/library/add_new_book/" element = {<AddBook />} />,
+              <Route path = "/library/add_new_book/" element = {<AddBook user={user} />} />,
               <Route path = "/library/book_search/" element = {<BookSearch />} />
               <Route path = "/library/" element = {<LibraryView user={user}/>} />,
               <Route path = "/library/book_tracker/" element={<BookTracker />} />,

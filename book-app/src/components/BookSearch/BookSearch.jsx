@@ -39,9 +39,9 @@ const BookSearch = () => {
 
     return (
         <React.Fragment>
-            <div style={{paddingTop: "10%"}}/>
+            <div style={{paddingTop: "10%"}} align='center'/>
             <h1 align="center">Book Search</h1>
-        <Container style={{paddingTop:"20px", align:"center"}} align="center">
+        <Container style={{paddingTop:"20px"}} align="center">
             <div className="search-bar ui segment" align="center">
                 <div className="field" align="center">
                     <form className="d-flex" onSubmit={(e) => handleSubmit(e)}>
@@ -53,7 +53,7 @@ const BookSearch = () => {
                                 aria-label="Search"
                                 value={input}
                                 onChange={handleChange}/>
-                        <button type="submit" variant="danger">Search</button>                
+                        <Button type="submit" variant="danger">Search</Button>                
                     </form>
                 </div>
             </div>

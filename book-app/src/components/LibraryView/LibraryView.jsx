@@ -36,12 +36,12 @@ const LibraryView = () => {
                 <Container style={{paddingTop: '20px', paddingBottom: '20px', backgroundColor: "#d9ccc1"}}>
                     <h1 align="center">Library</h1>
                 </Container>
-            <Container style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+            <Container style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}} >
                 {books.map((element, index) =>
-                    <div key={index} className="card mb-3" align="right" style={{ width: '500px', height: 'auto',padding: '5px'}}>
+                    <div key={index} className="card mb-3" align="right" style={{ width: '500px', height: 'auto', padding: '10px', borderRadius: '25px', boxShadow: '10px 10px #f2acb9'}}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
-                                <img src={`${element.book_cover}`} alt={`${element.book_title}`} style={{width: '200px', paddingTop:'10px', paddingLeft:'10px'}}/>
+                                <img src={`${element.book_cover}`} alt={`${element.book_title}`} style={{width: '200px', borderRadius:'25px'}}/>
                             </div> 
                                 <div className="col-md-8">
                                 <div className="card-body">

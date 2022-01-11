@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Container, Button, Row, Col, Alert } from 'react-bootstrap';
 import { Checkbox } from 'pretty-checkbox-react';
 
@@ -25,11 +25,11 @@ const AddBook = ({user}) => {
     const [specialEdition, setSpecialEdition] = useState(false);
     const [firstEdition, setFirstEdition] = useState(false);
     const [signed, setSigned] = useState(false);
-    // const [googleId, setGoogleId] = useState('');
+    const [userID, setUserId] = useState('');
     // const [sentence, setSentence] = useState('');
 
     const newBook = {
-        // user_id: userId,
+        user: user,
         book_title: title,
         book_author: author,
         book_isbn: isbn,
@@ -46,9 +46,9 @@ const AddBook = ({user}) => {
         signed: signed,
     }    
 
-    // useEffect(()=> {
-    //     setUserId({user})
-    // },[user])
+    useEffect(()=> {
+        setUserId({user})
+    },[user])
 
     let API_URL = `https://www.googleapis.com/books/v1/volumes`;
 
@@ -57,9 +57,9 @@ const AddBook = ({user}) => {
     //     setGoogleId(response.data.items.id)
     // }
 
-    const getCover = async () => {
-        let response = await axios.get(`${API_URL}?callback=show_bookcover&q=isbn:${isbn}`)
-        setCover(response.json)
+    const getCover = async (isbn) => {
+        let cover = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`
+        setCover(cover)
     }
 
     // const getSentence = async (isbn) => {
@@ -123,6 +123,7 @@ const AddBook = ({user}) => {
                                 placeholder="ISBN"
                                 onChange={(e)=> setIsbn(e.target.value)}
                                 value={isbn}/>
+
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
@@ -139,7 +140,6 @@ const AddBook = ({user}) => {
                                 <option>Audiobook</option>
                             </Form.Select>
                         </Form.Group>
-
                         <Form.Group as={Col} controlId="formGridBookGenre">
                             <Form.Label>Book Genre</Form.Label>
                             <Form.Select 
@@ -166,8 +166,8 @@ const AddBook = ({user}) => {
                             </Form.Select>
                         </Form.Group>
                     </Row>
-                    <Row className='mb-3'>
-                        <Form.Group as={Col} controlId="formCheckboxes" style={{padding: '5px'}}>
+                    <Row className='mb-3' style={{flexWrap: 'wrap'}}>
+                        <Form.Group controlId="formCheckboxes" style={{padding: '5px', flexDirection: 'row'}} >
                             <Checkbox value={series} onChange={(e)=> setSeries(e.target.checked)}> Series?</Checkbox>
                             <Checkbox value={specialEdition} onChange={(e) => setSpecialEdition(e.target.checked)}> Special Edition?</Checkbox> &nbsp;
                             <Checkbox value={firstEdition} onChange={(e)=> setFirstEdition(e.target.checked)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;

@@ -1,0 +1,45 @@
+.thumbBox {
+    padding: 15px 0 0;
+    color: #fff;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    float: left;
+    width: 100%;
+}
+.thumbBox h4,
+.thumbBox p {
+    padding: 8px 15px;
+}
+.thumbBox a {
+    color: #fff;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    float: left;
+    padding: 10px 15px;
+}
+
+#thumb:nth-child(1) .thumbBox {
+    background: #63c2de !important;
+    border-color: #2eadd3;
+}
+#thumb:nth-child(2) .thumbBox {
+    background-color: #20a8d8 !important;
+    border-color: #187da0;
+}
+#thumb:nth-child(3) .thumbBox {
+    background-color: #ffc107 !important;
+    border-color: #c69500;
+}
+#thumb:nth-child(4) .thumbBox {
+    background-color: #f86c6b !important;
+    border-color: #f5302e;
+}
+.card {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+}
+.card h5 {
+    padding: 15px;
+    background: #edf1ff;
+    border-radius: 4px 4px 0 0;
+}

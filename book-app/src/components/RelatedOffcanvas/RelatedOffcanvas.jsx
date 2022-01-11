@@ -12,18 +12,29 @@ function OffCanvasRelated({ name, ...props }) {
     
 
     const handleClick = () => {
+        let book_author = props.book_author;
+        console.log(book_author)
         handleShow();
-        getRelatedBooks();
+        getRelatedBooks(book_author);
     }
 
-    let book_author = props.book_author;
-    console.log(book_author)
+    
 
     const getRelatedBooks = async (book_author) => {
-        let API_URL = `https://www.googleapis.com/books/v1/volumes`;
-        let response = await axios.get(`${API_URL}?q=${book_author}&maxResults=5`)
-        setRelatedBooks(response.data.items);
-        console.log(relatedBooks)
+        console.log(book_author)
+        try {
+            let alternateTestURL = `https://www.googleapis.com/books/v1/volumes?q=${book_author}&maxResults=10`
+            let API_URL = `https://www.googleapis.com/books/v1/volumes`;
+            let fullURL = `${API_URL}?q=${book_author}&maxResults=5`
+            let response = await axios.get(alternateTestURL)
+            setRelatedBooks(response.data.items);
+            console.log(relatedBooks)
+            
+        } catch (error) {
+            console.log(error.response.data)
+            
+        }
+      
     }
 
     return (

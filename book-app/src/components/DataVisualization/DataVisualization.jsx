@@ -5,7 +5,7 @@
 // year to date words read
 import React, { useState, useEffect } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar, HorizontalBar, Doughnut } from 'react-chartjs-2';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -74,26 +74,13 @@ const DataVisualization = (props) => {
     const getWordCount = (() => {
         const total = work.map(item => item.word_count).reduce((prev,next) => prev + next);
         return setWordCount(total)
-        })
+        });
 
-    const BookChart = ({books}, {work}) => {
+    const BookChart = (books, work) => {
         let bookLabels = [];
         let booksRead = [];
         let workLabels = [];
         let workRead = [];
-
-        books &&
-            books.map((booksRead)=> {
-                const date = format(new Date(books.date_read, MM/dd/yy));
-                bookLabels.push(date)
-                booksRead.push(books.length)
-            })
-        work &&
-            work.map((workRead)=> {
-                const date = format(new Date(work.date_read, MM/dd/yy));
-                workLabels.push(date)
-                workRead.push(work.length)
-            })
 
         const readByMonth = {
 
@@ -101,14 +88,16 @@ const DataVisualization = (props) => {
             datasets: [
                 {
                     label: 'Books Read by Month',
-                    data: data.data.map((books) => books.date_read),
+                    data:  books.map((books) => books.date_read),
                     borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 1,
                     backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 },
                 {
                     label: 'Works Read by Month',
-                    data: data.data.map((work)=> work.date_read),
+                    data: work.map((work)=> work.date_read),
                     borderColor: 'rgb(53, 162, 235)',
+                    borderWidth: 1,
                     backgroundColor: 'rgba(53, 162, 235, 0.5)',
                         },
             ]
@@ -122,7 +111,7 @@ const DataVisualization = (props) => {
         datasets: [
             {
                 label: 'Words Read by Month',
-                data: data.data.map((work)=> work.word_count,({min:0, max: 1000000000})),
+                data: work.map((work)=> work.word_count,({min:0, max: 1000000000})),
                 backgroundColor: [
                     '#f23a29',
                     '#f2acb9',
@@ -146,9 +135,20 @@ return (
     <React.Fragment>
         <h3 align="left">Hey there, reader.</h3>
         <div style={{paddingTop:'20%'}}/>
-            <Container flex style={{flexWrap:'wrap', alignContent:'space-around'}}>
+        <Container>
+            <div className="card mb-3" style={{width: '500px', height: '250px', padding: '10px', borderRadius: '25px', boxShadow: '10px 10px #f2acb9'}}>
+                <h2>{bookCount}</h2><h4>books read</h4>
+            </div>
+            <div className="card mb-3" style={{width: '500px', height: '250px', padding: '10px', borderRadius: '25px', boxShadow: '10px 10px #f2acb9'}}>
+                <h2>{workCount}</h2><h4>works read</h4>
+            </div>
+            <div className="card mb-3" style={{width: '500px', height: '250px', padding: '10px', borderRadius: '25px', boxShadow: '10px 10px #f2acb9'}}>
+                <h2>{wordCount}</h2> words read
+            </div>
+            </Container>
+            <Container>
                 <Bar 
-                    data={readByMonth}
+                    data={BookChart}
                     option={{
                         plugins: {
                             title: {
@@ -162,8 +162,6 @@ return (
                         }
                     }}
                     />
-            </Container>
-            <Container>
                 <Doughnut data={wordsByMonth} />
             </Container>
     </React.Fragment>
