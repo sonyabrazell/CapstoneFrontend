@@ -3,7 +3,7 @@ import axios from "axios";
 
 const AddReadBook = () => {
 
-    const [readBook, setReadBook] = useState('')
+    const [readBook, setReadBook] = useState(true)
 
     const handleClick = (e) => {
         setReadBook(e.target.value);

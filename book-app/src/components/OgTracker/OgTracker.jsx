@@ -9,11 +9,11 @@ const OgTracker = () => {
     const [wordCount, setWordCount] = useState(0)
     const [workCount, setWorkCount] = useState(0)
     const [work, setWork] = useState([])
-    const [loadData, setLoadData] = useState(false)
+    // const [loadData, setLoadData] = useState(false)
 
     useEffect(()=> {
         getWork();
-    },[loadData])
+    })
 
     const handleSubmit = async (e) => {
         e.PreventDefault();

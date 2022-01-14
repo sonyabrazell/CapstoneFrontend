@@ -1,28 +1,30 @@
 import axios from 'axios'
 import { element } from 'prop-types';
 import React, { useState } from 'react'
-import { Container, Button, Alert } from 'react-bootstrap'
+import { Container, Button, Alert} from 'react-bootstrap'
 
 const BookSearch = () => { 
 
     const [searchResults, setSearchResults] = useState([]);
     const [input, setInput] = useState('');
 
-    let API_URL = `https://www.googleapis.com/books/v1/volumes`;
-
-    function handleChange(e){
-        const input = e.target.value
-        setInput(input)
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`${API_URL}?q=${input}&maxResults=10`)
-            .then(data => {
-                console.log(data.data.items)
-                setSearchResults(data.data.items)
-            })
-    };
+        let input = document.getElementById("input").value
+        getBooks(input)
+        };
+
+    const getBooks = async (input) => {
+        console.log(input)
+        try {
+            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input}&maxResults=10`)
+            setSearchResults(response.data.items);
+            console.log(searchResults)
+            }
+        catch (error) {
+            console.log(error.response.data)
+        }
+    }
 
     const handleClick = async (e, elementId) => {
         e.preventDefault();
@@ -39,53 +41,57 @@ const BookSearch = () => {
 
     return (
         <React.Fragment>
-            <div style={{paddingTop: "10%"}} align='center'/>
+            <div align='center' style={{paddingTop: "10%"}}/>
             <h1 align="center">Book Search</h1>
-        <Container style={{paddingTop:"20px"}} align="center">
-            <div className="search-bar ui segment" align="center">
-                <div className="field" align="center">
+        <Container style={{width: '600px', display: 'flex', justifyContent: 'center', paddingTop:"20px"}} >
+            <div className="search-bar ui segment" >
+                <div className="field" >
                     <form className="d-flex" onSubmit={(e) => handleSubmit(e)}>
                             <input
                                 id="input"
-                                type="text"
+                                type="search"
+                                width='500px'
                                 placeholder="Search by Title or Author"
                                 className="me-2"
                                 aria-label="Search"
                                 value={input}
-                                onChange={handleChange}/>
+                                onChange={(e)=> setInput(e.target.value)}
+                                />
                         <Button type="submit" variant="danger">Search</Button>                
                     </form>
                 </div>
             </div>
-            <div>
-                {searchResults.map((element, index =>
-            <div className="card mb-3" style={{width: '500px'}} key={index} >
+        </Container>
+        <Container>
+            <div style={{padding: '10px', display: 'flex', flexWrap: 'wrap', justifyContent:'space-around'}}>
+                {searchResults.map((element, index) =>
+            <div key={index} className="card mb-3" style={{ padding: '10px', width: '500px', height: 'auto', borderRadius:'25px', boxShadow: '10px 10px #f2acb9'}} >
                 <div className="row no-gutters">
                     <div className="col-md-4">
                         <img
                         className="bd-placeholder-img"
-                        width="100%"
-                        height="250"
+                        style={{width: '150px', height:'auto', borderRadius:'25px'}}
                         src={`http://books.google.com/books/content?id=${element.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                        alt={`${element.book_title}`}
+                        alt={`${element.volumeInfo.title}`}
                         aria-label="Book Cover">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#f2acb9"/>
                         </img>
                     </div>
                         <div className="col-md-8">
-                            <div className="card-body">
-                                <h5 className ="card-title">Title: {element.book_title}</h5>
-                                <h2>Author: {element.book_author}</h2>
+                            <div className="card-body" align='right'>
+                                <h4 className ="card-title">Title: {element.volumeInfo.title}</h4>
+                                <h5>Author: {element.volumeInfo.authors}</h5>
+                                {/* <p>ISBN: {element.volumeInfo.industryIdentifiers.identifier}</p> */}
                             </div>
                         </div>
                 </div>
-                    <Button variant="danger" onClick={(e) => handleClick(e, element.id)}>Add to Library</Button>
+                <div align='right' style={{padding: '15px'}}>
+                    <Button size='sm' variant="danger" onClick={(e) => handleClick(e, element.items.id)}>Add to Library</Button>
                     </div>
-                ))}
+                </div>
+                )}
                 </div>
             </Container>
         </React.Fragment>
     )
-}
+};
 export default BookSearch;

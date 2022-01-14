@@ -73,7 +73,8 @@ const AddBook = ({user}) => {
 
     let handleSubmit = async (e) => {
         e.preventDefault();
-        getCover(isbn)
+        getCover(isbn);
+        setUserId(user);
         // getSentence(first_sentence)
         console.log(newBook)
         const jwt = localStorage.getItem('token');
@@ -94,7 +95,7 @@ const AddBook = ({user}) => {
         <React.Fragment>
             <div style={{paddingTop:"10%"}}/>
             <h1 align="center">Add Book</h1>
-            <Container style={{padding: '20px', backgroundColor: '#f2acb9'}}>
+            <Container style={{padding: '20px', borderRadius: '25px', backgroundColor: '#f2acb9'}}>
                 <Form onSubmit={(e)=> handleSubmit(e)}>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridTitle">
@@ -167,7 +168,7 @@ const AddBook = ({user}) => {
                         </Form.Group>
                     </Row>
                     <Row className='mb-3' style={{flexWrap: 'wrap'}}>
-                        <Form.Group controlId="formCheckboxes" style={{padding: '5px', flexDirection: 'row'}} >
+                        <Form.Group controlId="formCheckboxes" style={{display: 'inlineFlex'}} >
                             <Checkbox value={series} onChange={(e)=> setSeries(e.target.checked)}> Series?</Checkbox>
                             <Checkbox value={specialEdition} onChange={(e) => setSpecialEdition(e.target.checked)}> Special Edition?</Checkbox> &nbsp;
                             <Checkbox value={firstEdition} onChange={(e)=> setFirstEdition(e.target.checked)}> First Edidtion?</Checkbox> &nbsp; &nbsp; &nbsp;

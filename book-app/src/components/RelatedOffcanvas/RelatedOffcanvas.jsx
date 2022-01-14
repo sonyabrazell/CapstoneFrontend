@@ -18,8 +18,6 @@ function OffCanvasRelated({ name, ...props }) {
         getRelatedBooks(book_author);
     }
 
-    
-
     const getRelatedBooks = async (book_author) => {
         console.log(book_author)
         try {
@@ -34,7 +32,6 @@ function OffCanvasRelated({ name, ...props }) {
             console.log(error.response.data)
             
         }
-      
     }
 
     return (
